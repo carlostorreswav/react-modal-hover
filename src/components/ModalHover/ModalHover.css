@@ -1,0 +1,44 @@
+.ModalHoverChild {
+    width: fit-content;
+}
+
+.ModalHoverBack {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.25);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.OpenBack {
+    animation: AniOpaOpen 1s ease;
+}
+
+.CloseBack {
+    animation: AniOpaClose .3s ease forwards;
+}
+
+@keyframes AniOpaOpen {
+    0% {
+        filter: opacity(0)
+    }
+    100% {
+        filter: opacity(1)
+    }
+}
+
+@keyframes AniOpaClose {
+    0% {
+        filter: opacity(0.5)
+    }
+    100% {
+        filter: opacity(0)
+    }
+}
+
+.ModalHoverCont {
+    display: none;
+    position:absolute;
+}

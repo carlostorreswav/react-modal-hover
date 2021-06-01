@@ -1,10 +1,9 @@
+import TestPage from '../components/TestPage/TestPage';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      Im app
-    </div>
+    <TestPage/>
   );
 }
 

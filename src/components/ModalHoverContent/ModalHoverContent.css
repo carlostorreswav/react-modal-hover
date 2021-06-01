@@ -1,0 +1,8 @@
+.ContentMainDiv {
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.75);
+    border-radius: 8px;
+    box-shadow: 0 0 10px 0 black;
+    color:white;
+}
+
