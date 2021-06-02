@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import ModalHoverContent from '../ModalHoverContent/ModalHoverContent'
 import './ModalHover.css'
 
@@ -13,9 +13,11 @@ const ModelHover = (props) => {
     const idMain = useRef({})
 
     const openBack = () => {
-        document.getElementById(idBack.current).style.display = "block"
-        document.getElementById(idBack.current).classList.add("OpenBack")
         document.getElementById(idChild.current).style.position = "relative"
+        setTimeout(() => {
+            document.getElementById(idBack.current).style.display = "block"
+            document.getElementById(idBack.current).classList.add("OpenBack")
+        }, 25)
     }
 
     const openCont = () => {
@@ -65,9 +67,9 @@ const ModelHover = (props) => {
 
         if (childData.x + childData.width >= widthBreakL && childData.x + childData.width <= widthBreakR) {
             contPos = {...contPos, wCenter: true}
-        } if (childData.x + childData.width <= widthBreakL) {
+        } else if (childData.x + childData.width <= widthBreakL) {
             contPos = {...contPos, wLeft: true}
-        } else {
+        } else if (childData.x + childData.width >= widthBreakR) {
             contPos = {...contPos, wRight: true}
         }
 
@@ -102,7 +104,6 @@ const ModelHover = (props) => {
         if (contPos.isBig) {
             newPosX = ((window.innerWidth - contData.width) / 2)
         }
-
         contDiv.style.transform = `translate(${newPosX}px, ${newPosY}px)`
     }
 
@@ -133,7 +134,7 @@ const ModelHover = (props) => {
 
     const onMouseEnterChild = () => {
         childRef.current = true
-        setTimeout(() => childRef.current && openMainProc(), 200)
+        setTimeout(() => childRef.current === true && openMainProc(), 200)
     }
 
     const onMouseLeaveChild = () => {
@@ -150,24 +151,29 @@ const ModelHover = (props) => {
         checkClose()
     }
 
+    useEffect(() => {
+        calcPos()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     return (
         <div className="ModalHoverMainDiv"
-        id={idMain.current = 'Main-' + Math.floor(Math.random() * 1000)}
+        id={idMain.current = 'Main-' + Math.floor(Math.random() * 10000)}
         >
             <div className="ModalHoverBack"
-            id={idBack.current = 'Back-' + Math.floor(Math.random() * 1000)}
+            id={idBack.current = 'Back-' + Math.floor(Math.random() * 10000)}
             >
 
             </div>
             <div className="ModalHoverChild"
                 onMouseEnter={() => onMouseEnterChild()}
                 onMouseLeave={() => onMouseLeaveChild()}
-                id={idChild.current = 'Child-' + Math.floor(Math.random() * 1000)}
+                id={idChild.current = 'Child-' + Math.floor(Math.random() * 10000)}
             >
                 {props.children}
             </div>
             <div className="ModalHoverCont"
-                id={idCont.current = 'Cont-' + Math.floor(Math.random() * 1000)}  
+                id={idCont.current = 'Cont-' + Math.floor(Math.random() * 10000)}  
                 onMouseEnter={() => onMouseEnterCont()}
                 onMouseLeave={() => onMouseLeaveCont()}          
             >

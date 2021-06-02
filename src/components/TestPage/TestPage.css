@@ -9,3 +9,8 @@ body{
     text-align: center;
     margin-right: 80px;
 }
+
+.fullcenter {
+    width: fit-content;
+    margin: 0 auto;
+}

@@ -1,7 +1,5 @@
 "use strict";
 
-require("core-js/modules/web.dom-collections.iterator.js");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });

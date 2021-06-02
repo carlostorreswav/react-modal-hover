@@ -2,7 +2,7 @@
 
 .ModalHoverMainDiv {
     visibility: hidden;
-
+    margin: 0;
 }
 
 .ModalHoverChild {
@@ -15,7 +15,7 @@
 
 .ModalHoverBack {
     display: none;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
     top: 0;
     left: 0;
