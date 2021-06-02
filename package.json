@@ -1,11 +1,21 @@
 {
   "name": "react-modal-hover",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "@carlostorreswav",
-  "keywords": ["react", "component", "ui", "modal", "hover", "info"],
+  "keywords": [
+    "react",
+    "component",
+    "ui",
+    "modal",
+    "hover",
+    "info"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.js",
-  "files": [ "dist", "README.md" ],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "private": false,
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
