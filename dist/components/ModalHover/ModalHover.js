@@ -200,10 +200,7 @@ const ModelHover = props => {
     id: idCont.current = 'Cont-' + Math.floor(Math.random() * 1000),
     onMouseEnter: () => onMouseEnterCont(),
     onMouseLeave: () => onMouseLeaveCont()
-  }, /*#__PURE__*/React.createElement(_ModalHoverContent.default, {
-    content: props.onHover,
-    open: childRef.current
-  })));
+  }, props.onHover));
 };
 
 var _default = ModelHover;
