@@ -171,7 +171,7 @@ const ModelHover = (props) => {
                 onMouseEnter={() => onMouseEnterCont()}
                 onMouseLeave={() => onMouseLeaveCont()}          
             >
-                <ModalHoverContent content={props.onHover} open={childRef.current}/>
+                {props.onHover}
             </div>
         </div>
     )
