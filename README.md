@@ -1,2 +1,5 @@
 # react-modal-hover (Beta)
-## npm i react-modal-hover
+## Quick start
+
+### npm i react-modal-hover
+
