@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import ModalHoverContent from '../ModalHoverContent/ModalHoverContent'
+import ModalHoverContent from '../../ModalHoverContent/ModalHoverContent'
 import './ModalHover.css'
 
 const ModelHover = (props) => {
