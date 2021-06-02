@@ -1,3 +1,3 @@
 import ModalHover from './components/ModalHover/ModalHover'
 
-export {ModalHover}
+export default ModalHover
