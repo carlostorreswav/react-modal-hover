@@ -28,9 +28,11 @@ const ModelHover = props => {
   const idMain = (0, _react.useRef)({});
 
   const openBack = () => {
-    document.getElementById(idBack.current).style.display = "block";
-    document.getElementById(idBack.current).classList.add("OpenBack");
     document.getElementById(idChild.current).style.position = "relative";
+    setTimeout(() => {
+      document.getElementById(idBack.current).style.display = "block";
+      document.getElementById(idBack.current).classList.add("OpenBack");
+    }, 25);
   };
 
   const openCont = () => {
@@ -91,13 +93,11 @@ const ModelHover = props => {
       contPos = _objectSpread(_objectSpread({}, contPos), {}, {
         wCenter: true
       });
-    }
-
-    if (childData.x + childData.width <= widthBreakL) {
+    } else if (childData.x + childData.width <= widthBreakL) {
       contPos = _objectSpread(_objectSpread({}, contPos), {}, {
         wLeft: true
       });
-    } else {
+    } else if (childData.x + childData.width >= widthBreakR) {
       contPos = _objectSpread(_objectSpread({}, contPos), {}, {
         wRight: true
       });
@@ -167,7 +167,7 @@ const ModelHover = props => {
 
   const onMouseEnterChild = () => {
     childRef.current = true;
-    setTimeout(() => childRef.current && openMainProc(), 200);
+    setTimeout(() => childRef.current === true && openMainProc(), 200);
   };
 
   const onMouseLeaveChild = () => {
@@ -184,20 +184,23 @@ const ModelHover = props => {
     checkClose();
   };
 
+  (0, _react.useEffect)(() => {
+    calcPos(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "ModalHoverMainDiv",
-    id: idMain.current = 'Main-' + Math.floor(Math.random() * 1000)
+    id: idMain.current = 'Main-' + Math.floor(Math.random() * 10000)
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "ModalHoverBack",
-    id: idBack.current = 'Back-' + Math.floor(Math.random() * 1000)
+    id: idBack.current = 'Back-' + Math.floor(Math.random() * 10000)
   }), /*#__PURE__*/_react.default.createElement("div", {
     className: "ModalHoverChild",
     onMouseEnter: () => onMouseEnterChild(),
     onMouseLeave: () => onMouseLeaveChild(),
-    id: idChild.current = 'Child-' + Math.floor(Math.random() * 1000)
+    id: idChild.current = 'Child-' + Math.floor(Math.random() * 10000)
   }, props.children), /*#__PURE__*/_react.default.createElement("div", {
     className: "ModalHoverCont",
-    id: idCont.current = 'Cont-' + Math.floor(Math.random() * 1000),
+    id: idCont.current = 'Cont-' + Math.floor(Math.random() * 10000),
     onMouseEnter: () => onMouseEnterCont(),
     onMouseLeave: () => onMouseLeaveCont()
   }, props.onHover));

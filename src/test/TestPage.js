@@ -1,5 +1,5 @@
 import './TestPage.css'
-import ModalHover from '../ModalHover/ModalHover'
+import ModalHover from '../lib/index'
 
 const TestPage = () => {
     return (

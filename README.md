@@ -1,6 +1,8 @@
 # react-modal-hover (beta)
-## Quick start
 
+## How it works
+Hovering the desired component will opens a modal with other component to be shown as info
+## Quick start
 ### install package from npm
 `npm i react-modal-hover`
 

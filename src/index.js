@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './app/App';
+import TestPage from './test/TestPage';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <TestPage />
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-

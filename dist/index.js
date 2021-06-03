@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _ModalHover = _interopRequireDefault(require("./components/ModalHover/ModalHover"));
+var _ModalHover = _interopRequireDefault(require("./ModalHover"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
