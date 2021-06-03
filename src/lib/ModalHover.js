@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import React from 'react'
 import './ModalHover.css'
 
-const ModelHover = (props) => {
+const ModalHover = (props) => {
 
     const propsDic = {
         BackStyles:{
@@ -123,13 +123,17 @@ const ModelHover = (props) => {
         // SETTING X POSITION
         if (childData.x + childData.width >= widthBreakL && childData.x + childData.width <= widthBreakR) {
             contPos = {...contPos, wCenter: true}
-        } else if (childData.x + childData.width <= widthBreakL) {
+        } 
+        
+        if (childData.x + childData.width <= widthBreakL) {
             contPos = {...contPos, wLeft: true}
-        } else if (childData.x + childData.width >= widthBreakR) {
+        }
+
+        if (childData.x + childData.width >= widthBreakR) {
             contPos = {...contPos, wRight: true}
         }
 
-        if (contData.width >= window.innerWidth / 2) {
+        if (contData.width >= window.innerWidth / 2 || childData.x + childData.width >= window.innerWidth / 2) {
             contPos = {...contPos, isBig: true}
         }
 
@@ -255,4 +259,4 @@ const ModelHover = (props) => {
     )
 }
 
-export default ModelHover
+export default ModalHover
