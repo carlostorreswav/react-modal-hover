@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useEffect } from 'react'
 import React from 'react'
 import './ModalHover.css'
 
@@ -56,13 +56,13 @@ const ModelHover = (props) => {
     }
 
     // REFS
-    const childRef = useRef({})
-    const contRef = useRef({})
+    const childRef = React.useRef({})
+    const contRef = React.useRef({})
 
-    const idBack = useRef({})
-    const idChild = useRef({})
-    const idCont = useRef({})
-    const idMain = useRef({})
+    const idBack = React.useRef({})
+    const idChild = React.useRef({})
+    const idCont = React.useRef({})
+    const idMain = React.useRef({})
 
     // OPEN AND CLOSING PROCEDURES 📂
     const openBack = () => {
