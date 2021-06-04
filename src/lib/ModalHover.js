@@ -6,7 +6,7 @@ const ModalHover = (props) => {
 
     const propsDic = {
         BackStyles:{
-            backgroundColor: props.BackStyles && props.BackStyles.backgroundColor ? props.BackStyles.backgroundColor : "rgba(0, 0, 0, 0.25)"
+            backgroundColor: props.BackStyles && props.BackStyles.backgroundColor ? props.BackStyles.backgroundColor : "rgba(0, 0, 0, 0.5)"
         },
         ContStyles:{
             backgroundColor: props.ContStyles && props.ContStyles.backgroundColor ? props.ContStyles.backgroundColor : "rgba(0, 0, 0, 0.75)",
@@ -30,7 +30,7 @@ const ModalHover = (props) => {
     }
 
     let ModalHoverChildStyles = {
-        visibility: "hidden"
+        visibility: "hidden",
     }
 
     let ModalHoverBackStyles = {
@@ -53,6 +53,24 @@ const ModalHover = (props) => {
         boxShadow: propsDic.ContStyles.boxShadow,
         color: propsDic.ContStyles.color,
         padding: propsDic.ContStyles.padding,
+    }
+
+    let ModalHoverLegendStyles = {
+        position: "absolute",
+        top: "0",
+        right: (props.legendPos === 'right' && '0'),
+        left: (props.legendPos === 'left' && '0'),
+        backgroundColor:"orange",
+        borderRadius:"50px",
+        minHeight: "20px",
+        minWidth: "20px",
+        padding: "2px 2px",
+        display:"flex",
+        justifyContent: "space-around",
+        alignItems: "center",
+        cursor: "pointer",
+        boxShadow: "0 0 5px 0 black",
+        fontSize: "16px",
     }
 
     // REFS
@@ -226,36 +244,43 @@ const ModalHover = (props) => {
 
     // caclPos on start to avoid errors
     useEffect(() => {
-        calcPos()
+        props.active && calcPos()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
-        <div className="ModalHoverMainDiv" style={ModalHoverMainDivStyles}
-        id={idMain.current = 'Main-' + Math.floor(Math.random() * 10000)}
-        >
-            <div className="ModalHoverBack" style={ModalHoverBackStyles}
-            id={idBack.current = 'Back-' + Math.floor(Math.random() * 10000)}
+        props.active ? 
+            <div className="ModalHoverMainDiv" style={ModalHoverMainDivStyles}
+            id={idMain.current = 'Main-' + Math.floor(Math.random() * 10000)}
             >
+                <div className="ModalHoverBack" style={ModalHoverBackStyles}
+                id={idBack.current = 'Back-' + Math.floor(Math.random() * 10000)}
+                >
 
-            </div>
-            <div className="ModalHoverChild" style={ModalHoverChildStyles}
-                onMouseEnter={() => onMouseEnterChild()}
-                onMouseLeave={() => onMouseLeaveChild()}
-                id={idChild.current = 'Child-' + Math.floor(Math.random() * 10000)}
-            >
+                </div>
+                <div className="ModalHoverChild" style={ModalHoverChildStyles}
+                    onMouseEnter={() => onMouseEnterChild()}
+                    onMouseLeave={() => onMouseLeaveChild()}
+                    id={idChild.current = 'Child-' + Math.floor(Math.random() * 10000)}
+                >
+                    <div style={{position:"relative"}}>
+                    {props.legend && <div style={ModalHoverLegendStyles}>{props.legendMsg}</div>}
+                    </div>
+                    {props.children}
 
-                {props.children}
+                </div>
+                <div className="ModalHoverCont" style={ModalHoverContStyles}
+                    id={idCont.current = 'Cont-' + Math.floor(Math.random() * 10000)}  
+                    onMouseEnter={() => onMouseEnterCont()}
+                    onMouseLeave={() => onMouseLeaveCont()}          
+                >
+                    {props.onHover}
+                </div>
+            </div>
+            
+            :
+            <>{props.children}</>
 
-            </div>
-            <div className="ModalHoverCont" style={ModalHoverContStyles}
-                id={idCont.current = 'Cont-' + Math.floor(Math.random() * 10000)}  
-                onMouseEnter={() => onMouseEnterCont()}
-                onMouseLeave={() => onMouseLeaveCont()}          
-            >
-                {props.onHover}
-            </div>
-        </div>
     )
 }
 
