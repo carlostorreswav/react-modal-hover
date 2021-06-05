@@ -102,18 +102,23 @@ const ModalHover = (props) => {
     const closeBack = () => {
         document.getElementById(idBack.current).style.animation = `AniOpaClose ${propsDic.Fades.backFadeOut} forwards`
         setTimeout(() => {
-            document.getElementById(idBack.current).style.display = "none"
-            document.getElementById(idBack.current).style.animation = ""
-            document.getElementById(idChild.current).style.position = ""
+            console.log('closeback!')
+            if (childRef.current !== true && contRef.current !== true) {
+                document.getElementById(idBack.current).style.display = "none"
+                document.getElementById(idBack.current).style.animation = ""
+                document.getElementById(idChild.current).style.position = ""
+            }
         }, 300)
     }
 
     const closeCont = () => {
         document.getElementById(idCont.current).style.animation = `AniOpaClose ${propsDic.Fades.backFadeOut} forwards`
         setTimeout(() => {
+            if (childRef.current !== true && contRef.current !== true) {
             document.getElementById(idCont.current).style.display = "none"
             document.getElementById(idCont.current).style.animation = ""
             document.getElementById(idMain.current).style.visibility = "hidden"
+        }
         }, 300)
     }
     // OPEN AND CLOSING PROCEDURES 📂
@@ -136,7 +141,6 @@ const ModalHover = (props) => {
         let contPos = {hUp:true, wLeft: false, wCenter: false, wRight:false, isBig:false}
 
         // SETTING UP OR DOWN
-        console.log('childData.y',childData.y,'childData.height',childData.height,'(heightBreak)',(heightBreak))
         if (childData.y + childData.height >= heightBreak) {
             contPos = {...contPos, hUp: false}
         } 
@@ -187,18 +191,13 @@ const ModalHover = (props) => {
         }
         // Content is big? complete screen
         if (contPos.isBig) {
-            console.log('isBig')
-            console.log('childData',childData,'contData',contData)
             const childCenter = childData.left + (childData.width / 2)
             const contCenter = contData.left + (contData.width / 2)
-            console.log('childCenter', childCenter)
-            console.log('contCenter', contCenter)
             newPosX = childCenter - contCenter
         }
 
         // onDev 👨‍💻
         if (process.env.NODE_ENV === 'development') {
-            console.log('%c ====> MOVEPROC <====', 'background: #333; color: #fff');
             console.table(contPos)
             console.table({newPosX: newPosX, newPosY: newPosY})
         }
