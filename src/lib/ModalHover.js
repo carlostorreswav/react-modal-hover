@@ -21,12 +21,22 @@ const ModalHover = (props) => {
             backFadeOut: props.Fades && props.Fades.backFadeOut ? props.Fades.backFadeOut : ".3s ease",
             contFadeIn: props.Fades && props.Fades.contFadeIn ? props.Fades.contFadeIn : "1s ease",
             contFadeOut: props.Fades && props.Fades.contFadeOut ? props.Fades.contFadeOut : ".3s ease",
+        },
+        Legend: {
+            legendMsg: props.legendMsg ? props.legendMsg : "?",
+            legendPos: props.legendPos ? props.legendPos: "right",
+            legend: props.legend === false ? false : true
+        },
+        General: {
+            active: props.active === false ? false : true
         }
     }
 
     //STYLES 
     let ModalHoverMainDivStyles = {
-        visibility: "hidden"
+        visibility: "hidden",
+        width:"fit-content",
+        margin:"0 auto"
     }
 
     let ModalHoverChildStyles = {
@@ -61,8 +71,8 @@ const ModalHover = (props) => {
     let ModalHoverLegendStyles = {
         position: "absolute",
         top: "0",
-        right: (props.legendPos === 'right' && '0'),
-        left: (props.legendPos === 'left' && '0'),
+        right: (propsDic.Legend.legendPos === 'right' && '0'),
+        left: (propsDic.Legend.legendPos === 'left' && '0'),
         backgroundColor:"orange",
         borderRadius:"50px",
         minHeight: "20px",
@@ -102,7 +112,6 @@ const ModalHover = (props) => {
     const closeBack = () => {
         document.getElementById(idBack.current).style.animation = `AniOpaClose ${propsDic.Fades.backFadeOut} forwards`
         setTimeout(() => {
-            console.log('closeback!')
             if (childRef.current !== true && contRef.current !== true) {
                 document.getElementById(idBack.current).style.display = "none"
                 document.getElementById(idBack.current).style.animation = ""
@@ -152,9 +161,11 @@ const ModalHover = (props) => {
         
         if (childData.x + childData.width <= widthBreakL) {
             contPos = {...contPos, wLeft: true}
+            if (!props.legendPos){propsDic.Legend.legendPos = "left"}
         }
 
         if (childData.x + childData.width >= widthBreakR) {
+            if (!props.legendPos){propsDic.Legend.legendPos = "right"}
             contPos = {...contPos, wRight: true}
         }
 
@@ -171,30 +182,30 @@ const ModalHover = (props) => {
 
         let newPosX = 0
         let newPosY = 0
-        // Content Down? move it up
-        if (contPos.hUp === false) {
-            newPosY = - (contData.height + childData.height)
-        }
-        // Content Left and NOT big? move it to right 
-        if (contPos.wLeft && !contPos.isBig) {
-            newPosX = (childData.left + childData.width)
-        }
-        // Content centered and NOT big? move it up to its position
-        if (contPos.wCenter && !contPos.isBig) {
-            const childCenter  = (childData.left + (childData.width / 2))
-            const contCenter = ((contData.width / 2))
-            newPosX = childCenter - contCenter
-        }
-        // Content Right? Move it to left
-        if (contPos.wRight && !contPos.isBig) {
-            newPosX = childData.left - contData.width
-        }
-        // Content is big? complete screen
-        if (contPos.isBig) {
-            const childCenter = childData.left + (childData.width / 2)
-            const contCenter = contData.left + (contData.width / 2)
-            newPosX = childCenter - contCenter
-        }
+        // // Content Down? move it up
+        // if (contPos.hUp === false) {
+        //     newPosY = - (contData.height + childData.height)
+        // }
+        // // Content Left and NOT big? move it to right 
+        // if (contPos.wLeft && !contPos.isBig) {
+        //     newPosX = (childData.left + childData.width)
+        // }
+        // // Content centered and NOT big? move it up to its position
+        // if (contPos.wCenter && !contPos.isBig) {
+        //     const childCenter  = (childData.left + (childData.width / 2))
+        //     const contCenter = ((contData.width / 2))
+        //     newPosX = childCenter - contCenter
+        // }
+        // // Content Right? Move it to left
+        // if (contPos.wRight && !contPos.isBig) {
+        //     newPosX = childData.left - contData.width
+        // }
+        // // Content is big? complete screen
+        // if (contPos.isBig) {
+        //     const childCenter = childData.left + (childData.width / 2)
+        //     const contCenter = contData.left + (contData.width / 2)
+        //     newPosX = childCenter - contCenter
+        // }
 
         // onDev 👨‍💻
         if (process.env.NODE_ENV === 'development') {
@@ -211,8 +222,8 @@ const ModalHover = (props) => {
 
     // OPEN AND CLOSE MAIN PROCEDURES 🚀
     const openMainProc = () => {
+                calcPos()
         openMain()
-        // calcPos()
         openBack()
         openCont()
     }
@@ -253,12 +264,14 @@ const ModalHover = (props) => {
 
     // caclPos on start to avoid errors
     useEffect(() => {
-        props.active && calcPos()
+        if (propsDic.General.active === true) {
+            calcPos()
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
-        props.active ? 
+        propsDic.General.active === true ? 
             <div className="ModalHoverMainDiv" style={ModalHoverMainDivStyles}
             id={idMain.current = 'Main-' + Math.floor(Math.random() * 10000)}
             >
@@ -273,7 +286,7 @@ const ModalHover = (props) => {
                     id={idChild.current = 'Child-' + Math.floor(Math.random() * 10000)}
                 >
                     <div style={{position:"relative"}}>
-                    {props.legend && <div style={ModalHoverLegendStyles}>{props.legendMsg}</div>}
+                    {propsDic.Legend.legend === true && <div style={ModalHoverLegendStyles}>{propsDic.Legend.legendMsg}</div>}
                     </div>
                     {props.children}
 
