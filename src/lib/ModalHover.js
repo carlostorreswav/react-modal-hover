@@ -31,11 +31,13 @@ const ModalHover = (props) => {
 
     let ModalHoverChildStyles = {
         visibility: "hidden",
+        zIndex: "999999999",
     }
 
     let ModalHoverBackStyles = {
         display: "none",
         position: "fixed",
+        zIndex: "999999997",
         top: "0",
         left: "0",
         width: "100%",
@@ -46,6 +48,7 @@ const ModalHover = (props) => {
     let ModalHoverContStyles = {
         display: "none",
         position: "absolute",
+        zIndex: "999999998",
         wordWrap: "break-word",
         maxWidth: propsDic.ContStyles.maxWidth,
         backgroundColor: propsDic.ContStyles.backgroundColor,
@@ -133,7 +136,7 @@ const ModalHover = (props) => {
         let contPos = {hUp:true, wLeft: false, wCenter: false, wRight:false, isBig:false}
 
         // SETTING UP OR DOWN
-        console.log('childData.y',childData.y,'childData.height',childData.height,'(heightBreak / 2)',(heightBreak / 2))
+        console.log('childData.y',childData.y,'childData.height',childData.height,'(heightBreak)',(heightBreak))
         if (childData.y + childData.height >= heightBreak) {
             contPos = {...contPos, hUp: false}
         } 
@@ -161,6 +164,7 @@ const ModalHover = (props) => {
 
     // Moving the content aside the children
     const moveProc = (contPos, childData, contData, contDiv) => {
+
         let newPosX = 0
         let newPosY = 0
         // Content Down? move it up
@@ -183,7 +187,13 @@ const ModalHover = (props) => {
         }
         // Content is big? complete screen
         if (contPos.isBig) {
-            newPosX = ((window.innerWidth - contData.width) / 2)
+            console.log('isBig')
+            console.log('childData',childData,'contData',contData)
+            const childCenter = childData.left + (childData.width / 2)
+            const contCenter = contData.left + (contData.width / 2)
+            console.log('childCenter', childCenter)
+            console.log('contCenter', contCenter)
+            newPosX = childCenter - contCenter
         }
 
         // onDev 👨‍💻
@@ -203,7 +213,7 @@ const ModalHover = (props) => {
     // OPEN AND CLOSE MAIN PROCEDURES 🚀
     const openMainProc = () => {
         openMain()
-        calcPos()
+        // calcPos()
         openBack()
         openCont()
     }
