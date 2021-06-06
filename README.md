@@ -1,8 +1,6 @@
 # __react-modal-hover__
 
-<div style="width:fit-content; margin: 0 auto">
 <img src="shared/rmh.gif" alt="drawing" style="width:500px"/>
-</div>
 
 <br>
 
@@ -20,7 +18,7 @@ Take care with the `width` of the element you want to hover 🤟
 
 <br>
 
-## 🚀 __Live Demo: https://onlyMastering.com/devmode__
+### 🚀 __Live Demo: https://onlyMastering.com/devmode__
 <br>
 
 ## ✨ __Quick Start__ ✨
@@ -160,9 +158,7 @@ This package does not support TypeScript yet and that's sad 😞 __please PR me!
 
 # __Follow me! ✨__
 
-|<img src="shared/github.svg" alt="drawing" style="width:50px; filter:invert(1)"/>| <a href="https://github.com/carlostorreswav"><h2>@carlostorreswav</h2><a/>|
-|:-------------:|:-------------:|
-|<img src="shared/twitter.svg" alt="drawing" style="width:50px; filter:invert(1)"/>| <a href="https://twitter.com/carlostorreswav"><h2>@carlostorreswav</h2><a/>|
-|<img src="shared/linkedin.svg" alt="drawing" style="width:50px; filter:invert(1)"/>| <a href="https://www.linkedin.com/in/carlos-torres-a8a459213/"><h2>Carlos Torres</h2><a/>|
+__GitHub__ | <a href="https://github.com/carlostorreswav">@carlostorreswav<a/><br>
+__Twitter__ | <a href="https://twitter.com/carlostorreswav">@carlostorreswav<a/><br>
+__Linkedin__ | <a href="https://www.linkedin.com/in/carlos-torres-a8a459213/">Carlos Torres<a/>
 
-(icons from https://iconoir.com/)
