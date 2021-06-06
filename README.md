@@ -1,70 +1,91 @@
-# react-modal-hover (v1.0)
-![](rmh.gif)
+# __react-modal-hover__
 
-### How it works
+<div style="width:fit-content; margin: 0 auto">
+<img src="shared/rmh.gif" alt="drawing" style="width:500px"/>
+</div>
+
+<br>
+
+## __How it works 🤔__
 Hovering over the desired component will open a modal with another component shown as information
 <br>
-This package does not yet support TypeScript, please PR me 🥰
+Take care with the `width` of the element you want to hover 🤟
+
+### __There are 3 main elements on this component:__
+####  __1 - Content__: the element to show when user hover the element
+####  __2 - Legend__: the element to make users know some element is hoverable
+
+####  __3 - Background__: a black transparent window when you hover
+
+
 <br>
 
-#### Its three main elements on this component:
-#####  1 - Background: a black transparent window when you hover
-#####  2 - Legend: the element to make users know some element is hoverable
-#####  3 - Content: the element to show when user hover the element
+## 🚀 __Live Demo: https://onlyMastering.com/devmode__
+<br>
 
-### Live Demo: https://onlyMastering.com/devmode 🚀
-## Quick start
-### Install package from npm ⬇️
-`npm i react-modal-hover`
+## ✨ __Quick Start__ ✨
+### __Install package from npm__ 📥
+```npm i react-modal-hover```
 
-#### Import it on your .js 📥
-`import { ModalHover } from 'react-modal-hover'`
+### Import it on your .js 📥
+```import ModalHover from 'react-modal-hover'```
 
-#### Prepare your "onHover" component or just a simple string
+### Prepare your "onHover" component or just a simple string
 
 ```
 <ModalHover onHover={<h3>Hello World</h3>}>
   <div>Hover Me!</div>
 <ModalHover/>
 ```
+<br>
 
-## General Props
+## __General Props__
+
+ℹ️ Main props of the component, *legendMsg* is __?__ because is the typical tooltip map legend
+<br>
+ℹ️ if option `active={false}` ModalHover will not be even visible on the html
 
 |Option|Type|Default|Description|
 |-------------|:-------------:|:-------------:|:-------------:|
-|active|boolean|true|activate all the hover option
-|legend|boolean|true|legend on top of your hover component
-|legendPos|string|right|position of the legend on your hover component
-|legendMsg|string|?|message of the legend
-### Example
+|__active__|boolean|true|activate all the hover option
+|__legend__|boolean|true|legend on top of your hover component
+|__legendPos__|string|right|position of the legend on your hover component
+|__legendMsg__|string|?|message of the legend
+
+### __Example__
 
 ```
-<ModalHover onHover={<MySocialMediaComponent/>} legendPos="left" legendMsg="More info about the creator">
-  <div>Carlos Torres: frontEnd Developer</div>
+<ModalHover onHover={<MySocialMediaComponent/>} legendPos="left" legendMsg="Follow me!">
+  <div>Author: Carlos Torres</div>
 <ModalHover/>
 ```
+<br>
 
-## Styled Props (CSS)
+## __Styled Props (CSS)__
 
-### BackgroundStyles
-
-|Option|Type|Default|Description|
-|-------------|:-------------:|:-------------:|:-------------:|
-|backgroundColor|string|rgba(0, 0, 0, 0.75)|background-color, better with some transparency|
-
-### ContentStyles
+ℹ️ Styling props, you can add it on objects or direct CSS, check examples below
+### __BackgroundStyles__
 
 |Option|Type|Default|Description|
 |-------------|:-------------:|:-------------:|:-------------:|
-|backgroundColor|string|rgba(0, 0, 0, 1)| content css property|
-|maxWidth|string|100%| content css property|
-|borderRadius|string|8px| content css property|
-|boxShadow|string|0 0 10px 2px black| content css property|
-|color|string|white| content css property|
-|padding|string|10px 20px| content css property|
-|border|string|2px solid orange| content css property|
+|__backgroundColor__|string|rgba(0, 0, 0, 0.75)|background-color, better with some transparency|
 
-### Example with object
+<br>
+
+### __ContentStyles__
+
+|Option|Type|Default|Description|
+|-------------|:-------------:|:-------------:|:-------------:|
+|__backgroundColor__|string|rgba(0, 0, 0, 1)| content css property|
+|__maxWidth__|string|100%| content css property|
+|__borderRadius__|string|8px| content css property|
+|__boxShadow__|string|0 0 10px 2px black| content css property|
+|__color__|string|white| content css property|
+|__padding__|string|10px 20px| content css property|
+|__border__|string|2px solid orange| content css property|
+
+
+#### __Example with object__
 ```
 const MyContentStyles = {
     backgroundColor: "white",
@@ -77,25 +98,27 @@ const MyContentStyles = {
 <ModalHover/>
 ```
 
-### LegendStyles
+<br>
+
+### __LegendStyles__
 
 |Option|Type|Default|Description|
 |-------------|:-------------:|:-------------:|:-------------:|
-|color|string|white| Legend css property|
-|backgroundColor|string|orange| Legend css property|
-|borderRadius|string|50px| Legend css property|
-|minHeight|string|20px| Legend css property|
-|minWidth|string|20px| Legend css property|
-|padding|string|2px 2px| Legend css property|
-|display|string|flex| Legend css property|
-|justifyContent|string|space-around| Legend css property|
-|alignItems|string|center| Legend css property|
-|cursor|string|pointer| Legend css property|
-|boxShadow|string|0 0 5px 0 black| Legend css property|
-|fontSize|string|16px| Legend css property|
-|fontWeight|string|bold| Legend css property|
+|__color__|string|white| Legend css property|
+|__backgroundColor__|string|orange| Legend css property|
+|__borderRadius__|string|50px| Legend css property|
+|__minHeight__|string|20px| Legend css property|
+|__minWidth__|string|20px| Legend css property|
+|__padding__|string|2px 2px| Legend css property|
+|__display__|string|flex| Legend css property|
+|__justifyContent__|string|space-around| Legend css property|
+|__alignItems__|string|center| Legend css property|
+|__cursor__|string|pointer| Legend css property|
+|__boxShadow__|string|0 0 5px 0 black| Legend css property|
+|__fontSize__|string|16px| Legend css property|
+|__fontWeight__|string|bold| Legend css property|
 
-### Example with direct css insert (just like in React)
+#### __Example with direct css insert (just like in React)__
 ```
 <ModalHover 
     ContentStyles={{color:"red", padding:"20px"}} 
@@ -107,9 +130,11 @@ const MyContentStyles = {
 <ModalHover/>
 ```
 
-## Fades
+<br>
 
-You can set fade-in/out props to the background and the content, do it carefully:
+## __Fades__
+
+ℹ️  You can set fade-in/out props to the background and the content, do it carefully ⚠️ :
 
 |Option|Type|Default|Description|
 |-------------|:-------------:|:-------------:|:-------------:|
@@ -117,7 +142,27 @@ You can set fade-in/out props to the background and the content, do it carefully
 |backFadeOut|string|.3s ease|recommended fade out for background|
 |contFadeIn|string|1s ease|recommended fade in for content|
 |contFadeOut|string|.3s ease|recommended fade out for content|
+#### __Example with Fades__
+```
+<ModalHover 
+    Fades={{backFadeIn:".5s linear", contFadeIn:".5s linear"}} 
+    legendMsg="info"
+    >
+  <div>Im other div that wants to be hovered</div>
+<ModalHover/>
+```
+<br>
 
-### TypeScript support
+### __TypeScript__
+This package does not support TypeScript yet and that's sad 😞 __please PR me! 🥰__
 
-At the moment this package has no TypeScript support, but PRs are really welcome :) 
+<br>
+
+# __Follow me! ✨__
+
+|<img src="shared/github.svg" alt="drawing" style="width:50px; filter:invert(1)"/>| <a href="https://github.com/carlostorreswav"><h2>@carlostorreswav</h2><a/>|
+|:-------------:|:-------------:|
+|<img src="shared/twitter.svg" alt="drawing" style="width:50px; filter:invert(1)"/>| <a href="https://twitter.com/carlostorreswav"><h2>@carlostorreswav</h2><a/>|
+|<img src="shared/linkedin.svg" alt="drawing" style="width:50px; filter:invert(1)"/>| <a href="https://www.linkedin.com/in/carlos-torres-a8a459213/"><h2>Carlos Torres</h2><a/>|
+
+(icons from https://iconoir.com/)
