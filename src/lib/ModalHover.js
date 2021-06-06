@@ -6,7 +6,7 @@ const ModalHover = (props) => {
 
     const propsDic = {
         BackStyles:{
-            backgroundColor: props.BackStyles && props.BackStyles.backgroundColor ? props.BackStyles.backgroundColor : "rgba(0, 0, 0, 0.5)"
+            backgroundColor: props.BackStyles && props.BackStyles.backgroundColor ? props.BackStyles.backgroundColor : "rgba(0, 0, 0, 0.75)"
         },
         ContStyles:{
             backgroundColor: props.ContStyles && props.ContStyles.backgroundColor ? props.ContStyles.backgroundColor : "rgba(0, 0, 0, 1)",
@@ -26,7 +26,8 @@ const ModalHover = (props) => {
         Legend: {
             legendMsg: props.legendMsg ? props.legendMsg : "?",
             legendPos: props.legendPos ? props.legendPos: "right",
-            legend: props.legend === false ? false : true
+            legend: props.legend === false ? false : true,
+            color: props.legendColor && props.legendColor ? props.legendColor : "white",
         },
         General: {
             active: props.active === false ? false : true
@@ -87,6 +88,7 @@ const ModalHover = (props) => {
         boxShadow: "0 0 5px 0 black",
         fontSize: "16px",
         fontWeight: "bold",
+        color: propsDic.Legend.color
     }
 
     // REFS
@@ -240,7 +242,7 @@ const ModalHover = (props) => {
             if (childRef.current !== true && contRef.current !== true) {
                 closeMainProc()
             }
-        }, 250)
+        }, 100)
     }
 
     // Mouse enter / Mouse Leave 🖱️
