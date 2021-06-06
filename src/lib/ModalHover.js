@@ -9,12 +9,13 @@ const ModalHover = (props) => {
             backgroundColor: props.BackStyles && props.BackStyles.backgroundColor ? props.BackStyles.backgroundColor : "rgba(0, 0, 0, 0.5)"
         },
         ContStyles:{
-            backgroundColor: props.ContStyles && props.ContStyles.backgroundColor ? props.ContStyles.backgroundColor : "rgba(0, 0, 0, 0.75)",
-            maxWidth: props.ContStyles && props.ContStyles.maxWidth ? props.ContStyles.maxWidth : "90%",
+            backgroundColor: props.ContStyles && props.ContStyles.backgroundColor ? props.ContStyles.backgroundColor : "rgba(0, 0, 0, 1)",
+            maxWidth: props.ContStyles && props.ContStyles.maxWidth ? props.ContStyles.maxWidth : "100%",
             borderRadius: props.ContStyles && props.ContStyles.borderRadius ? props.ContStyles.borderRadius : "8px",
-            boxShadow: props.ContStyles && props.ContStyles.boxShadow ? props.ContStyles.boxShadow : "0 0 10px 0 black",
+            boxShadow: props.ContStyles && props.ContStyles.boxShadow ? props.ContStyles.boxShadow : "0 0 10px 2px black",
             color: props.ContStyles && props.ContStyles.color ? props.ContStyles.color : "white",
             padding: props.ContStyles && props.ContStyles.padding ? props.ContStyles.padding : "10px 20px",
+            border: props.ContStyles && props.ContStyles.border ? props.ContStyles.border : "2px solid orange",
         },
         Fades: {
             backFadeIn: props.Fades && props.Fades.backFadeIn ? props.Fades.backFadeIn : "1s ease",
@@ -35,7 +36,7 @@ const ModalHover = (props) => {
     //STYLES 
     let ModalHoverMainDivStyles = {
         visibility: "hidden",
-        width:"fit-content",
+        // width:"fit-content",
         margin:"0 auto"
     }
 
@@ -66,6 +67,7 @@ const ModalHover = (props) => {
         boxShadow: propsDic.ContStyles.boxShadow,
         color: propsDic.ContStyles.color,
         padding: propsDic.ContStyles.padding,
+        border: propsDic.ContStyles.border
     }
 
     let ModalHoverLegendStyles = {
@@ -84,6 +86,7 @@ const ModalHover = (props) => {
         cursor: "pointer",
         boxShadow: "0 0 5px 0 black",
         fontSize: "16px",
+        fontWeight: "bold",
     }
 
     // REFS
@@ -123,11 +126,9 @@ const ModalHover = (props) => {
     const closeCont = () => {
         document.getElementById(idCont.current).style.animation = `AniOpaClose ${propsDic.Fades.backFadeOut} forwards`
         setTimeout(() => {
-            if (childRef.current !== true && contRef.current !== true) {
             document.getElementById(idCont.current).style.display = "none"
             document.getElementById(idCont.current).style.animation = ""
             document.getElementById(idMain.current).style.visibility = "hidden"
-        }
         }, 300)
     }
     // OPEN AND CLOSING PROCEDURES 📂
@@ -136,6 +137,7 @@ const ModalHover = (props) => {
     const calcPos = () => {
         const childDiv = document.getElementById(idChild.current).firstChild
         const contDiv = document.getElementById(idCont.current)
+        contDiv.style.transform = `translate(0px, 0px)`
         const childData = childDiv.getBoundingClientRect()
 
         //We open for an instant the component to measeure its position
@@ -179,33 +181,17 @@ const ModalHover = (props) => {
 
     // Moving the content aside the children
     const moveProc = (contPos, childData, contData, contDiv) => {
-
         let newPosX = 0
         let newPosY = 0
+
+        console.log('childData',childData)
+        console.log('contData',contData)
+        console.log('window.innerWidth',window.innerWidth)
+
         // // Content Down? move it up
-        // if (contPos.hUp === false) {
-        //     newPosY = - (contData.height + childData.height)
-        // }
-        // // Content Left and NOT big? move it to right 
-        // if (contPos.wLeft && !contPos.isBig) {
-        //     newPosX = (childData.left + childData.width)
-        // }
-        // // Content centered and NOT big? move it up to its position
-        // if (contPos.wCenter && !contPos.isBig) {
-        //     const childCenter  = (childData.left + (childData.width / 2))
-        //     const contCenter = ((contData.width / 2))
-        //     newPosX = childCenter - contCenter
-        // }
-        // // Content Right? Move it to left
-        // if (contPos.wRight && !contPos.isBig) {
-        //     newPosX = childData.left - contData.width
-        // }
-        // // Content is big? complete screen
-        // if (contPos.isBig) {
-        //     const childCenter = childData.left + (childData.width / 2)
-        //     const contCenter = contData.left + (contData.width / 2)
-        //     newPosX = childCenter - contCenter
-        // }
+        if (contPos.hUp === false) {
+            newPosY = - (contData.height + childData.height + (contData.top - childData.top))
+        }
 
         // onDev 👨‍💻
         if (process.env.NODE_ENV === 'development') {
@@ -214,6 +200,20 @@ const ModalHover = (props) => {
         }
 
         contDiv.style.transform = `translate(${newPosX}px, ${newPosY}px)`
+
+        contDiv.style.transform = `translate(${moveRatio(childData, contData)}px, ${newPosY}px)`
+    }
+
+    const moveRatio = (childData, contData) => {
+        console.log('moveRatio: childData',childData,'contData',contData)
+        let newPos = 0
+            if ((contData.right - childData.right) / 2 >= contData.left) {
+                newPos = - contData.left + 10
+            } else {
+                newPos = - ((contData.right - childData.right) / 2)
+            }
+        console.log('returning', newPos)
+        return newPos
     }
 
     const openMain = () => {
@@ -222,7 +222,7 @@ const ModalHover = (props) => {
 
     // OPEN AND CLOSE MAIN PROCEDURES 🚀
     const openMainProc = () => {
-                calcPos()
+        calcPos()
         openMain()
         openBack()
         openCont()
@@ -235,6 +235,7 @@ const ModalHover = (props) => {
 
     // Both components cannot be hovered to close the modal
     const checkClose = () => {
+        console.log('checkClose!')
         setTimeout(() => {
             if (childRef.current !== true && contRef.current !== true) {
                 closeMainProc()
