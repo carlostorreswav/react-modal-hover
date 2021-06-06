@@ -1,6 +1,6 @@
 {
   "name": "react-modal-hover",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "@carlostorreswav",
   "keywords": [
     "react",
@@ -9,7 +9,7 @@
     "modal",
     "hover",
     "info"
-  ],  
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/carlostorreswav/react-modal-hover.git"
