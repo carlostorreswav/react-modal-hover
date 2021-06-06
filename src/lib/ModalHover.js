@@ -112,7 +112,6 @@ const ModalHover = (props) => {
     const idCont = React.useRef({})
     const idMain = React.useRef({})
 
-    // OPEN AND CLOSING PROCEDURES 📂
     const openBack = () => {
         document.getElementById(idChild.current).style.position = "relative"
         setTimeout(() => {
@@ -145,7 +144,6 @@ const ModalHover = (props) => {
             document.getElementById(idMain.current).style.visibility = "hidden"
         }, 300)
     }
-    // OPEN AND CLOSING PROCEDURES 📂
 
     // Calculating position of the Children 
     const calcPos = () => {
@@ -165,12 +163,10 @@ const ModalHover = (props) => {
 
         let contPos = {hUp:true, wLeft: false, wCenter: false, wRight:false, isBig:false}
 
-        // SETTING UP OR DOWN
         if (childData.y + childData.height >= heightBreak) {
             contPos = {...contPos, hUp: false}
         } 
 
-        // SETTING X POSITION
         if (childData.x + childData.width >= widthBreakL && childData.x + childData.width <= widthBreakR) {
             contPos = {...contPos, wCenter: true}
         } 
@@ -207,7 +203,6 @@ const ModalHover = (props) => {
             newPosY = - (contData.height + childData.height + (contData.top - childData.top))
         }
 
-        // onDev 👨‍💻
         if (process.env.NODE_ENV === 'development') {
             console.table(contPos)
             console.table({newPosX: newPosX, newPosY: newPosY})
@@ -234,7 +229,6 @@ const ModalHover = (props) => {
         document.getElementById(idMain.current).style.visibility = "visible"
     }
 
-    // OPEN AND CLOSE MAIN PROCEDURES 🚀
     const openMainProc = () => {
         calcPos()
         openMain()
