@@ -1,4 +1,4 @@
-# react-modal-hover (v1.0)
+# react-modal-hover (v1.0.0)
 ![](rmh.gif)
 
 ### How it works
