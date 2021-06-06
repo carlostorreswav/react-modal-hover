@@ -23,14 +23,26 @@ const ModalHover = (props) => {
             contFadeIn: props.Fades && props.Fades.contFadeIn ? props.Fades.contFadeIn : "1s ease",
             contFadeOut: props.Fades && props.Fades.contFadeOut ? props.Fades.contFadeOut : ".3s ease",
         },
-        Legend: {
-            legendMsg: props.legendMsg ? props.legendMsg : "?",
-            legendPos: props.legendPos ? props.legendPos: "right",
-            legend: props.legend === false ? false : true,
-            color: props.legendColor && props.legendColor ? props.legendColor : "white",
+        LegendStyles: {
+            color: props.LegendStyles && props.LegendStyles.color ? props.LegendStyles.color : "white",
+            backgroundColor:    props.LegendStyles && props.LegendStyles.backgroundColor ? props.LegendStyles.backgroundColor :"orange",
+            borderRadius:       props.LegendStyles && props.LegendStyles.borderRadius ? props.LegendStyles.borderRadius :"50px",
+            minHeight:          props.LegendStyles && props.LegendStyles.minHeight ? props.LegendStyles.minHeight :"20px",
+            minWidth:           props.LegendStyles && props.LegendStyles.minWidth ? props.LegendStyles.minWidth :"20px",
+            padding:            props.LegendStyles && props.LegendStyles.padding ? props.LegendStyles.padding :"2px 2px",
+            display:            props.LegendStyles && props.LegendStyles.display ? props.LegendStyles.display :"flex",
+            justifyContent:     props.LegendStyles && props.LegendStyles.justifyContent ? props.LegendStyles.justifyContent :"space-around",
+            alignItems:         props.LegendStyles && props.LegendStyles.alignItems ? props.LegendStyles.alignItems :"center",
+            cursor:             props.LegendStyles && props.LegendStyles.cursor ? props.LegendStyles.cursor :"pointer",
+            boxShadow:          props.LegendStyles && props.LegendStyles.boxShadow ? props.LegendStyles.boxShadow :"0 0 5px 0 black",
+            fontSize:           props.LegendStyles && props.LegendStyles.fontSize ? props.LegendStyles.fontSize :"16px",
+            fontWeight:         props.LegendStyles && props.LegendStyles.fontWeight ? props.LegendStyles.fontWeight :"bold",
         },
         General: {
-            active: props.active === false ? false : true
+            active: props.active === false ? false : true,
+            legend: props.legend === false ? false : true,
+            legendMsg: props.legendMsg ? props.legendMsg : "?",
+            legendPos: props.legendPos ? props.legendPos: "right",
         }
     }
 
@@ -74,21 +86,21 @@ const ModalHover = (props) => {
     let ModalHoverLegendStyles = {
         position: "absolute",
         top: "0",
-        right: (propsDic.Legend.legendPos === 'right' && '0'),
-        left: (propsDic.Legend.legendPos === 'left' && '0'),
-        backgroundColor:"orange",
-        borderRadius:"50px",
-        minHeight: "20px",
-        minWidth: "20px",
-        padding: "2px 2px",
-        display:"flex",
-        justifyContent: "space-around",
-        alignItems: "center",
-        cursor: "pointer",
-        boxShadow: "0 0 5px 0 black",
-        fontSize: "16px",
-        fontWeight: "bold",
-        color: propsDic.Legend.color
+        right: (propsDic.General.legendPos === 'right' && '0'),
+        left: (propsDic.General.legendPos === 'left' && '0'),
+        backgroundColor:        propsDic.LegendStyles.backgroundColor,
+        borderRadius:           propsDic.LegendStyles.borderRadius,
+        minHeight:              propsDic.LegendStyles.minHeight,
+        minWidth:               propsDic.LegendStyles.minWidth,
+        padding:                propsDic.LegendStyles.padding,
+        display:                propsDic.LegendStyles.display,
+        justifyContent:         propsDic.LegendStyles.justifyContent,
+        alignItems:             propsDic.LegendStyles.alignItems,
+        cursor:                 propsDic.LegendStyles.cursor,
+        boxShadow:              propsDic.LegendStyles.boxShadow,
+        fontSize:               propsDic.LegendStyles.fontSize,
+        fontWeight:             propsDic.LegendStyles.fontWeight,
+        color: propsDic.LegendStyles.color
     }
 
     // REFS
@@ -165,11 +177,11 @@ const ModalHover = (props) => {
         
         if (childData.x + childData.width <= widthBreakL) {
             contPos = {...contPos, wLeft: true}
-            if (!props.legendPos){propsDic.Legend.legendPos = "left"}
+            if (!props.legendPos){propsDic.General.legendPos = "left"}
         }
 
         if (childData.x + childData.width >= widthBreakR) {
-            if (!props.legendPos){propsDic.Legend.legendPos = "right"}
+            if (!props.legendPos){propsDic.General.legendPos = "right"}
             contPos = {...contPos, wRight: true}
         }
 
@@ -289,7 +301,7 @@ const ModalHover = (props) => {
                     id={idChild.current = 'Child-' + Math.floor(Math.random() * 10000)}
                 >
                     <div style={{position:"relative"}}>
-                    {propsDic.Legend.legend === true && <div style={ModalHoverLegendStyles}>{propsDic.Legend.legendMsg}</div>}
+                    {propsDic.General.legend === true && <div style={ModalHoverLegendStyles}>{propsDic.General.legendMsg}</div>}
                     </div>
                     {props.children}
 
