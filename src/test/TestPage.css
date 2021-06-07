@@ -2,15 +2,32 @@ body{
     margin: 0;
 }
 
-.centered {
+.toHover1 {
     width: fit-content;
-    background-color: blueviolet;
     margin: 0 auto;
-    text-align: center;
-    margin-right: 80px;
+    padding: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background-color: rgba(128, 128, 128, 0.5);
+    border: 1px solid black;
+    border-radius: 8px;
+}
+.toHover2 {
+    width: fit-content;
+    padding: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background-color: rgba(128, 128, 128, 0.5);
+    border: 1px solid black;
+    border-radius: 8px;
 }
 
-.fullcenter {
+.toHover3 {
     width: fit-content;
-    margin: 0 auto;
+    margin-left: 60%;
+    background-color: rgba(128, 128, 128, 0.5);
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
