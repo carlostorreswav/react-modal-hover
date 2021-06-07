@@ -36,7 +36,7 @@ const ModalHover = (props) => {
             zIndex:             "999999998",
             wordWrap:           "break-word",
             backgroundColor:    props.ContentStyles && props.ContentStyles.backgroundColor ?  props.ContentStyles.backgroundColor    : "rgba(0, 0, 0, 1)",
-            maxWidth:           props.ContentStyles && props.ContentStyles.maxWidth ?         props.ContentStyles.maxWidth           : "94%",
+            maxWidth:           props.ContentStyles && props.ContentStyles.maxWidth ?         props.ContentStyles.maxWidth           : "100%",
             marginLeft:           props.ContentStyles && props.ContentStyles.marginLeft ?         props.ContentStyles.marginLeft           : "20px",
             marginRight:           props.ContentStyles && props.ContentStyles.marginRight ?         props.ContentStyles.marginRight           : "20px",
             borderRadius:       props.ContentStyles && props.ContentStyles.borderRadius ?     props.ContentStyles.borderRadius       : "8px",
@@ -131,7 +131,7 @@ const ModalHover = (props) => {
         }, 300)
     }
 
-    // Calculating position of the Children 
+    // Calculating position of the Children
     const calcPos = () => {
         const childDiv = document.getElementById(idChild.current).firstChild
         const contDiv = document.getElementById(idCont.current)
@@ -141,8 +141,9 @@ const ModalHover = (props) => {
         //We open for an instant the component to measeure its position
         contDiv.style.display = "block"
         const contData = document.getElementById(idCont.current).getBoundingClientRect()
-        console.log('childData', childData)
-        console.log('window.innerWidth', window.innerWidth)
+        props.logs === true && console.log('childData', childData)
+        props.logs === true && console.log('contData', contData)
+        props.logs === true && console.log('window.innerWidth', window.innerWidth)
         contDiv.style.display = "none"
 
         const heightBreak = window.innerHeight / 2
@@ -153,12 +154,12 @@ const ModalHover = (props) => {
 
         if (childData.y + childData.height >= heightBreak) {
             contPos = {...contPos, hUp: false}
-        } 
+        }
 
         if (childData.x + childData.width >= widthBreakL && childData.x + childData.width <= widthBreakR) {
             contPos = {...contPos, wCenter: true}
-        } 
-        
+        }
+
         if (childData.x + childData.width <= widthBreakL) {
             contPos = {...contPos, wLeft: true}
             if (!props.legendPos){propsDic.General.legendPos = "left"}
@@ -173,22 +174,25 @@ const ModalHover = (props) => {
             contPos = {...contPos, isBig: true}
         }
 
-        console.table(contPos)
+        props.logs === true && console.table(contPos)
         adjustLegend(childData)
         moveProc(contPos, childData, contData, contDiv)
 
     }
 
     const adjustLegend = (childData) => {
-        const LegendDiv = document.getElementById(idLegend.current)
-        const LegendData = LegendDiv.getBoundingClientRect()
-        let newX = 0
-        let newY = 0
-        const prevMarginTop = Number(propsDic.LegendStyles.marginTop.replace(/px$/, ''))
-        const prevMarginLeft = Number(propsDic.LegendStyles.marginLeft.replace(/px$/, ''))
-        newY = - (LegendData.height / 2) + prevMarginTop - childData.height
-        newX = - (LegendData.width / 2 + prevMarginLeft)
-        LegendDiv.style.margin = `${newY}px ${newX}px`
+        if (props.legend !== false) {
+            const LegendDiv = document.getElementById(idLegend.current)
+            const LegendData = LegendDiv.getBoundingClientRect()
+            let newX = 0
+            let newY = 0
+            const prevMarginTop = Number(propsDic.LegendStyles.marginTop.replace(/px$/, ''))
+            const prevMarginLeft = Number(propsDic.LegendStyles.marginLeft.replace(/px$/, ''))
+            newY = - (LegendData.height / 2) + prevMarginTop
+            newX = - (LegendData.width / 2 + prevMarginLeft)
+            LegendDiv.style.margin = `${newY}px ${newX}px`
+            props.logs === true  && console.log('LegendDiv.style.margin',`${newY}px ${newX}px`)
+        }
     }
 
     // Moving the content aside the children
@@ -197,33 +201,20 @@ const ModalHover = (props) => {
         if (contPos.hUp === false) {
             newPosY = - (contData.height + childData.height)
         }
-        contDiv.style.transform = `translate(${moveX(childData, contData)}px, ${newPosY }px)`
+        contDiv.style.transform = `translate(${moveX(childData, contData, contPos)}px, ${newPosY }px)`
     }
 
-    const moveX = (childData, contData) => {
+    const moveX = (childData, contData, contPos) => {
+        //HARDEST PROCEDURE ON DEV 👨‍💻
         let newPos = 0
-            // if ((contData.right - childData.right) / 2 >= contData.left) {
-            //     console.log('if')
-            //     newPos = - contData.left + 10
-            // } else {
-                // newPos = - ((contData.right - childData.right) / 2)
-                newPos = childData.right - (childData.width / 2) - (contData.width / 2) - (propsDic.ContentStyles.marginLeft.replace(/px$/, ''))
-
-                if(newPos + contData.right >= window.innerWidth) {
-                    newPos = newPos - (newPos + contData.right - window.innerWidth + (propsDic.ContentStyles.marginLeft.replace(/px$/, '') * 2))
+                if (contData.left + contData.right <= window.innerWidth / 2 ) {
+                    console.log('LO ES')
+                const childMidPoint = childData.left + (childData.width / 2)
+                const contMidPoint = contData.left + (contData.width / 2)
+                newPos = - (contMidPoint - childMidPoint)
                 }
 
-                if(newPos <= 0) {
-                    newPos = 0
-                }
-                console.log('newPos', newPos)
-                console.log('childData.right',childData.right)
-                console.log('childData.width',childData.width)
-                console.log('contData.right',contData.right)
-                console.log('contData.left',contData.left)
-                console.log('contData.width',contData.width)
-                
-            // }
+        props.logs === true && console.log('newPos', newPos)
         return newPos
     }
 
@@ -238,21 +229,24 @@ const ModalHover = (props) => {
     }
 
     const createLegend = () => {
-        const MetaLegDiv = document.createElement('div')
-        MetaLegDiv.style.position = "relative"
-        const LegDiv = document.createElement('div')
-        LegDiv.innerText = propsDic.General.legendMsg
-        LegDiv.id = idLegend.current = 'Legend-' + Math.floor(Math.random() * 10000)
-        Object.entries(propsDic.LegendStyles).forEach((elm) => {
-            LegDiv.style[elm[0]] = elm[1]
-        })
-        MetaLegDiv.appendChild(LegDiv)
-        document.getElementById(idChild.current).firstChild.appendChild(MetaLegDiv)
+        if (props.legend !== false) {
+            const MetaLegDiv = document.createElement('div')
+            MetaLegDiv.style.position = "relative"
+            const LegDiv = document.createElement('div')
+            LegDiv.innerText = propsDic.General.legendMsg
+            LegDiv.id = idLegend.current = 'Legend-' + Math.floor(Math.random() * 10000)
+            Object.entries(propsDic.LegendStyles).forEach((elm) => {
+                LegDiv.style[elm[0]] = elm[1]
+            })
+            MetaLegDiv.appendChild(LegDiv)
+            document.getElementById(idChild.current).firstChild.appendChild(MetaLegDiv)
+        }
     }
 
 
     // caclPos on start to avoid errors
     useEffect(() => {
+        console.log('props.children.$$typeof',props.children.$$typeof)
         if (propsDic.General.active === true) {
             if (props.children && props.children.$$typeof === Symbol.for('react.element')) {
                 createLegend()
@@ -264,8 +258,9 @@ const ModalHover = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.LegendStyles, props.ContentStyles, props.BackgroundStyles])
 
+
     return (
-        propsDic.General.active === true ? 
+        propsDic.General.active === true ?
             <div className="ModalHoverMainDiv" style={propsDic.MainDivStyles}
             id={idMain.current = 'Main-' + Math.floor(Math.random() * 10000)}
             >
@@ -275,9 +270,9 @@ const ModalHover = (props) => {
 
                 </div>
                 <div className="ModalHoverChild" style={propsDic.ChildStyles}
-                    onMouseEnter={() => {      
+                    onMouseEnter={() => {
                         childRef.current = true
-                        setTimeout(() => {childRef.current === true && 
+                        setTimeout(() => {childRef.current === true &&
                             calcPos()
                             openBack()
                             openCont()
@@ -293,14 +288,14 @@ const ModalHover = (props) => {
 
                 </div>
                 <div className="ModalHoverCont" style={propsDic.ContentStyles}
-                    id={idCont.current = 'Cont-' + Math.floor(Math.random() * 10000)}  
+                    id={idCont.current = 'Cont-' + Math.floor(Math.random() * 10000)}
                     onMouseEnter={() => contRef.current = true}
-                    onMouseLeave={() => {contRef.current = false; checkClose()}}          
+                    onMouseLeave={() => {contRef.current = false; checkClose()}}
                 >
                     {props.onHover}
                 </div>
             </div>
-            
+
             :
             <>{props.children}</>
 
