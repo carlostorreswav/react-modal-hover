@@ -152,7 +152,7 @@ const MyContentStyles = {
 <br>
 
 ### __TypeScript__
-This package does not support TypeScript yet and that's sad 😞 __please PR me! 🥰__
+This package does support TypeScript 🥰
 
 <br>
 
