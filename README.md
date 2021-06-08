@@ -81,6 +81,8 @@ Take care with the `width` of the element you want to hover 🤟
 |__color__|string|white| content css property|
 |__padding__|string|10px 20px| content css property|
 |__border__|string|2px solid orange| content css property|
+|__marginLeft__|string|20px| content css property|
+|__marginRight__|string|20px| content css property|
 
 
 #### __Example with object__
@@ -115,6 +117,8 @@ const MyContentStyles = {
 |__boxShadow__|string|0 0 5px 0 black| Legend css property|
 |__fontSize__|string|16px| Legend css property|
 |__fontWeight__|string|bold| Legend css property|
+|__marginTop__|string|0px| Legend css property|
+|__marginLeft__|string|0px| Legend css property|
 
 #### __Example with direct css insert (just like in React)__
 ```
