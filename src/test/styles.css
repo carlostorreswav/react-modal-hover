@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+}
+
+.centered {
+  width: fit-content;
+  background-color: blueviolet;
+  margin: 0 auto;
+  text-align: center;
+  margin-right: 80px;
+}
+
+.fullcenter {
+  width: fit-content;
+  margin: 0 auto;
+}
