@@ -8,11 +8,11 @@ const TestPage = () => {
             <h1>react-modal-hover</h1>
             <hr></hr>
             </div>
-            <ModalHover logs={true} onHover={<h1>This is normal text</h1>}>
+            <ModalHover logs={true} onHover={<h1>Thfghjfghgjffhjxt</h1>}>
                 <h1 className="toHover1">Hover me!</h1>
             </ModalHover>
-            <ModalHover logs={true} onHover={<h1>This  text</h1>}>
-                <h1 className="toHover2">Hover me!</h1>
+            <ModalHover logs={true} onHover={<h1>Tdfghdfghdfghfdghis  text</h1>}>
+                <div className="toHover2">Hover me!</div>
             </ModalHover>
             <ModalHover logs={true} onHover={<h1>This is a very long text This is a very long text This is a very long text This is a very long textThis is a very long text This is a very long text This is a very long text This is a very long textThis is a very long text This is a very long text This is a very long text This is a very long textThis is a very long text This is a very long text This is a very long text This is a very long text</h1>}>
                 <h1 className="toHover3">Hover me!</h1>

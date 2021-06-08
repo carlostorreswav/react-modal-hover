@@ -95,6 +95,7 @@ const ModalHover = (props) => {
     const idCont = React.useRef({})
     const idMain = React.useRef({})
     const idLegend = React.useRef({})
+    const idDynChild = React.useRef({})
 
     //OPEN AND CLOSE PROCEDURES
     const openBack = () => {
@@ -133,7 +134,9 @@ const ModalHover = (props) => {
 
     // Calculating position of the Children
     const calcPos = () => {
-        const childDiv = document.getElementById(idChild.current).firstChild
+        // const childDiv = document.getElementById(idChild.current).firstChild
+        const childDiv = document.querySelector(`[idDynChild=${idDynChild.current}]`)
+        console.log('childDiv', childDiv)
         const contDiv = document.getElementById(idCont.current)
         contDiv.style.transform = `translate(0px, 0px)`
         const childData = childDiv.getBoundingClientRect()
@@ -181,6 +184,8 @@ const ModalHover = (props) => {
     }
 
     const adjustLegend = (childData) => {
+        console.log('====================///////////////')
+        console.log('childData', childData)
         if (props.legend !== false) {
             const LegendDiv = document.getElementById(idLegend.current)
             const LegendData = LegendDiv.getBoundingClientRect()
@@ -199,7 +204,17 @@ const ModalHover = (props) => {
     const moveProc = (contPos, childData, contData, contDiv) => {
         let newPosY = 0
         if (contPos.hUp === false) {
-            newPosY = - (contData.height + childData.height)
+            console.log('contData.height',contData.height)
+            console.log('childData.',childData)
+            console.log('=========================================================>')
+            console.log(document.getElementById(idLegend.current).getBoundingClientRect())
+            let newLegHeight = 0
+            if (props.legend !== false) {
+                newLegHeight = document.getElementById(idLegend.current).getBoundingClientRect().height
+                console.log('newLegHeight',newLegHeight)
+            }
+            newPosY = - (contData.height + childData.height + newLegHeight )
+            console.log('newPosY', newPosY)
         }
         contDiv.style.transform = `translate(${moveX(childData, contData, contPos)}px, ${newPosY }px)`
     }
@@ -207,13 +222,24 @@ const ModalHover = (props) => {
     const moveX = (childData, contData, contPos) => {
         //HARDEST PROCEDURE ON DEV 👨‍💻
         let newPos = 0
-                if (contData.left + contData.right <= window.innerWidth / 2 ) {
-                    console.log('LO ES')
-                const childMidPoint = childData.left + (childData.width / 2)
-                const contMidPoint = contData.left + (contData.width / 2)
-                newPos = - (contMidPoint - childMidPoint)
-                }
+            // const childMidPoint = childData.left + (childData.width / 2)
+            // const contMidPoint = contData.left + (contData.width / 2)
+            // newPos = - (contMidPoint - childMidPoint)
 
+
+            // if (contData.width + newPos >= window.innerWidth) {
+            //     newPos = newPos - (contData.width + newPos - (window.innerWidth) + (propsDic.ContentStyles.marginLeft.replace(/px$/, '') * 2))
+            // }
+
+            // if(contData.x - newPos >= 0) {
+            //     newPos = propsDic.ContentStyles.marginLeft.replace(/px$/, '')
+            // }
+
+            if (contPos.wCenter && !contPos.isBig) {
+            const childMidPoint = childData.left + (childData.width / 2)
+            const contMidPoint = contData.left + (contData.width / 2)
+            newPos = - (contMidPoint - childMidPoint)
+            }
         props.logs === true && console.log('newPos', newPos)
         return newPos
     }
@@ -228,19 +254,53 @@ const ModalHover = (props) => {
         }, 100)
     }
 
-    const createLegend = () => {
-        if (props.legend !== false) {
-            const MetaLegDiv = document.createElement('div')
-            MetaLegDiv.style.position = "relative"
-            const LegDiv = document.createElement('div')
-            LegDiv.innerText = propsDic.General.legendMsg
-            LegDiv.id = idLegend.current = 'Legend-' + Math.floor(Math.random() * 10000)
-            Object.entries(propsDic.LegendStyles).forEach((elm) => {
-                LegDiv.style[elm[0]] = elm[1]
-            })
-            MetaLegDiv.appendChild(LegDiv)
-            document.getElementById(idChild.current).firstChild.appendChild(MetaLegDiv)
-        }
+    const createLegend = async () => {
+        return new Promise((res, rej) => {
+
+                let MetaLegDiv = document.createElement('div')
+                MetaLegDiv.style.position = "relative"
+                const LegDiv = document.createElement('div')
+                LegDiv.innerText = propsDic.General.legendMsg
+                LegDiv.id = idLegend.current = 'Legend-' + Math.floor(Math.random() * 10000)
+                Object.entries(propsDic.LegendStyles).forEach((elm) => {
+                    LegDiv.style[elm[0]] = elm[1]
+                })
+                if (props.legend === false) {
+                    LegDiv.style.visibility = "hidden"
+                }
+
+                // document.getElementById(idChild.current).appendChild(MetaLegDiv)    
+                // document.getElementById(idChild.current).parentNode.insertBefore(MetaLegDiv, document.getElementById(idChild.current))
+    
+                // Get the parent element
+                    let parentElement = document.getElementById(idChild.current)
+                    // Get the parent's first child
+                    let theFirstChild = parentElement.lastElementChild
+
+                    // let childClone = theFirstChild.cloneNode(true)
+                    // childClone.style.visibility = "visible"
+                    // childClone.style.position = "relative"
+                    // childClone.appendChild(LegDiv)
+
+                    MetaLegDiv.appendChild(LegDiv)
+    
+                    //idDynChild
+                    theFirstChild.setAttribute('idDynChild', idDynChild.current = 'idDynChild-' + Math.floor(Math.random() * 10000) )
+    
+                    // Create a new element
+                    let newElement = MetaLegDiv
+    
+                    // Insert the new element before the first child
+                    // parentElement.insertBefore(newElement, theFirstChild)
+                    theFirstChild.appendChild(newElement)
+                    res(true)
+        })
+
+    }
+
+    const startProc = async () => {
+        const res = await createLegend()
+        if (res===true) {calcPos()}
     }
 
 
@@ -249,8 +309,7 @@ const ModalHover = (props) => {
         console.log('props.children.$$typeof',props.children.$$typeof)
         if (propsDic.General.active === true) {
             if (props.children && props.children.$$typeof === Symbol.for('react.element')) {
-                createLegend()
-                calcPos()
+                startProc()
             } else {
                 console.error('react-modal-hover needs a children and is empty')
             }
@@ -280,12 +339,7 @@ const ModalHover = (props) => {
                     onMouseLeave={() => {childRef.current = false; checkClose()}}
                     id={idChild.current = 'Child-' + Math.floor(Math.random() * 10000)}
                 >
-                    {/* <div style={{position:"relative"}}>
-                    {propsDic.General.legend === true && <div style={propsDic.LegendStyles} id={idLegend.current = 'Legend-' + Math.floor(Math.random() * 10000)}>{propsDic.General.legendMsg}</div>}
-                    </div> */}
                     {props.children}
-
-
                 </div>
                 <div className="ModalHoverCont" style={propsDic.ContentStyles}
                     id={idCont.current = 'Cont-' + Math.floor(Math.random() * 10000)}
