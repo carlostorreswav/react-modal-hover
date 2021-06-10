@@ -7,11 +7,6 @@ export type MoveProcAction = (
   contDiv: HTMLElement,
 ) => void;
 
-export type MoveRatioAction = (
-  childData: DOMRect,
-  contData: DOMRect,
-) => void;
-
 export interface ContentPosition {
   hUp: boolean;
   wLeft: boolean;
@@ -21,37 +16,48 @@ export interface ContentPosition {
 }
 
 export interface PropsDicConfig {
-  BackStyles: CSSProperties;
-  ContStyles: CSSProperties;
+  BackgroundStyles: CSSProperties;
+  ContentStyles: CSSProperties;
   Fades: {
-    backFadeIn: string;
-    backFadeOut: string;
-    contFadeIn: string;
-    contFadeOut: string;
+    backFadeIn?: string;
+    backFadeOut?: string;
+    contFadeIn?: string;
+    contFadeOut?: string;
   };
   LegendStyles: CSSProperties;
   General: {
-    active: boolean;
-    legend: boolean;
-    legendMsg: string;
-    legendPos: string;
+    active?: boolean;
+    legend?: boolean;
+    legendMsg?: string;
+    legendPos?: boolean | string;
   };
+  MainDivStyles: CSSProperties;
+  ChildStyles: CSSProperties;
 }
 
 export interface ModalHoverProps {
   active?: boolean;
-  BackStyles?: CSSProperties;
+  BackgroundStyles?: CSSProperties;
   children?: ReactNode;
-  ContStyles?: CSSProperties;
+  ChildStyles?: CSSProperties;
+  ContentStyles?: CSSProperties;
   Fades?: {
-    backFadeIn: string;
-    backFadeOut: string;
-    contFadeIn: string;
-    contFadeOut: string;
+    backFadeIn?: string;
+    backFadeOut?: string;
+    contFadeIn?: string;
+    contFadeOut?: string;
+  };
+  General?: {
+    active?: boolean;
+    legend?: boolean;
+    legendMsg?: string;
+    legendPos?: boolean | string;
   };
   legend?: boolean;
   legendMsg?: string;
-  legendPos?: string;
+  legendPos?: boolean | string;
   LegendStyles?: CSSProperties;
+  logs?: boolean;
+  MainDivStyles?: CSSProperties;
   onHover: JSX.Element;
 }

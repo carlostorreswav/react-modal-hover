@@ -35,6 +35,7 @@ Take care with the `width` of the element you want to hover 🤟
   <div>Hover Me!</div>
 <ModalHover/>
 ```
+ℹ️ Better if the child is a ```<div>``` or ```<h1>...<h6>```
 <br>
 
 ## __General Props__

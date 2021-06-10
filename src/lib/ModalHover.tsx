@@ -4,15 +4,9 @@ import {
   ContentPosition,
   ModalHoverProps,
   MoveProcAction,
-  MoveRatioAction,
 } from './interfaces';
 import {
-  _ModalHoverBackStyles,
-  _ModalHoverContStyles,
-  _ModalHoverLegendStyles,
   _propsDic,
-  ModalHoverChildStyles,
-  ModalHoverMainDivStyles,
 } from './custom-props';
 
 import './styles.css';
@@ -20,9 +14,6 @@ import './styles.css';
 export function ModalHover(props: ModalHoverProps): JSX.Element {
   // Styles
   const propsDic = _propsDic(props);
-  const ModalHoverBackStyles = _ModalHoverBackStyles(propsDic);
-  const ModalHoverContStyles = _ModalHoverContStyles(propsDic);
-  const ModalHoverLegendStyles = _ModalHoverLegendStyles(propsDic);
 
   // References
   const childRef = useRef({});
@@ -32,18 +23,22 @@ export function ModalHover(props: ModalHoverProps): JSX.Element {
   const idChild = useRef({});
   const idCont = useRef({});
   const idMain = useRef({});
+  const idLegend = React.useRef({});
+  const idDynChild = React.useRef({});
 
   const openBack: () => void = (): void => {
+    const $idMain: HTMLElement | null = document.getElementById(idMain.current as string);
     const $idChild: HTMLElement | null = document.getElementById(idChild.current as string);
 
-    if ($idChild) {
-      $idChild.style.position = 'relative';
+    if ($idMain && $idChild) {
+      $idMain.style.visibility = "visible";
+      $idChild.style.position = "relative";
 
-      setTimeout((): void => {
+      setTimeout(() => {
         const $idBack: HTMLElement | null = document.getElementById(idBack.current as string);
 
         if ($idBack) {
-          $idBack.style.display = 'block';
+          $idBack.style.display = "block";
           $idBack.style.animation = `AniOpaOpen ${propsDic.Fades.backFadeIn}`;
         }
       }, 25);
@@ -96,21 +91,29 @@ export function ModalHover(props: ModalHoverProps): JSX.Element {
     }
   };
 
+  const adjustLegend: (childData: DOMRect) => void = (childData: DOMRect): void => {
+    if (props.legend !== false) {
+      const LegendDiv: HTMLElement = document.getElementById(idLegend.current as string) as HTMLElement;
+      const LegendData: DOMRect = LegendDiv.getBoundingClientRect();
+      const prevMarginTop = Number((propsDic.LegendStyles.marginTop as string).replace(/px$/, ''));
+      const prevMarginLeft = Number((propsDic.LegendStyles.marginLeft as string).replace(/px$/, ''));
+      const newX = - (LegendData.width / 2 + prevMarginLeft);
+      const newY = - (LegendData.height / 2) + prevMarginTop - (childData.height);
+
+      LegendDiv.style.margin = `${newY}px ${newX}px`;
+    }
+  };
+
   // Calculating position of the Children
   const calcPos: () => void = (): void => {
-    const $idChild: HTMLElement | null = document.getElementById(idChild.current as string);
+    const $idChild: HTMLElement | null = document.querySelector(`[idDynChild=${idDynChild.current}]`);
     const $idCont: HTMLElement | null = document.getElementById(idCont.current as string);
 
     if (!$idChild && !$idCont) {
       return;
     }
 
-    const childDiv: ChildNode | null = ($idChild as HTMLElement).firstChild;
-
-    if (!childDiv) {
-      return;
-    }
-
+    const childDiv: HTMLElement = $idChild as HTMLElement;
     const contDiv: HTMLElement = $idCont as HTMLElement;
 
     contDiv.style.transform = 'translate(0px, 0px)';
@@ -164,8 +167,29 @@ export function ModalHover(props: ModalHoverProps): JSX.Element {
       contPos = { ...contPos, isBig: true };
     }
 
+    if (props.logs) {
+      console.table(contPos);
+    }
+
+    adjustLegend(childData);
     moveProc(contPos, childData, contData, contDiv);
   };
+
+  const moveX: (
+    childData: DOMRect, contData: DOMRect, contPos: ContentPosition,
+  ) => number = (childData: DOMRect, contData: DOMRect, contPos: ContentPosition): number => {
+    //HARDEST PROCEDURE ON DEV 👨‍💻
+    let newPos = 0;
+
+    if (contPos.wCenter && !contPos.isBig) {
+      const childMidPoint = childData.left + (childData.width / 2);
+      const contMidPoint = contData.left + (contData.width / 2);
+
+      newPos = - (contMidPoint - childMidPoint);
+    }
+
+    return newPos;
+  }
 
   // Moving the content aside the children
   const moveProc: MoveProcAction = (
@@ -174,139 +198,150 @@ export function ModalHover(props: ModalHoverProps): JSX.Element {
     contData: DOMRect,
     contDiv: HTMLElement,
   ): void => {
-    let newPosX: number = 0;
-    let newPosY: number = 0;
+    let newPosY = 0;
 
-    // console.log('childData', childData)
-    // console.log('contData', contData)
-    // console.log('window.innerWidth', window.innerWidth)
-
-    // // Content Down? move it up
     if (contPos.hUp === false) {
-      newPosY = - (contData.height + childData.height + (contData.top - childData.top));
+      let newLegHeight = 0;
+
+      if (props.legend !== false) {
+        const $idLegend: HTMLElement = document.getElementById(idLegend.current as string) as HTMLElement;
+
+        newLegHeight = $idLegend.getBoundingClientRect().height;
+      }
+
+      newPosY = - (contData.height + childData.height + newLegHeight);
     }
 
-    // if (process.env.NODE_ENV === 'development') {
-    //   console.table(contPos)
-    //   console.table({ newPosX: newPosX, newPosY: newPosY })
-    // }
-
-    contDiv.style.transform = `translate(${newPosX}px, ${newPosY}px)`;
-    contDiv.style.transform = `translate(${moveRatio(childData, contData)}px, ${newPosY}px)`;
+    contDiv.style.transform = `translate(${moveX(childData, contData, contPos)}px, ${newPosY }px)`;
   };
-  const moveRatio: MoveRatioAction = (childData: DOMRect, contData: DOMRect): number => {
-    // console.log('moveRatio: childData', childData, 'contData', contData)
-
-    let newPos: number = 0;
-
-    if ((contData.right - childData.right) / 2 >= contData.left) {
-      newPos = - contData.left + 10;
-    } else {
-      newPos = - ((contData.right - childData.right) / 2);
-    }
-
-    // console.log('returning', newPos)
-
-    return newPos;
-  };
-
-  const openMain: () => void = (): void => {
-    const $idMain: HTMLElement | null = document.getElementById(idMain.current as string);
-
-    if ($idMain) {
-      $idMain.style.visibility = 'visible';
-    }
-  };
-  const openMainProc: () => void = (): void => {
-    calcPos();
-    openMain();
-    openBack();
-    openCont();
-  };
-  const closeMainProc: () => void = (): void => {
-    closeBack();
-    closeCont();
-  };
-  // Both components cannot be hovered to close the modal
   const checkClose: () => void = (): void => {
     setTimeout(() => {
       if (childRef.current !== true && contRef.current !== true) {
-        closeMainProc();
+        closeBack();
+        closeCont();
       }
     }, 100);
   };
 
-  // Mouse enter / Mouse Leave 🖱️
-  const onMouseEnterChild: () => void = (): void => {
-    childRef.current = true;
+  const createLegend = async (): Promise<unknown> => {
+    return new Promise((resolve): void => {
+      let MetaLegDiv: HTMLDivElement = document.createElement('div');
 
-    setTimeout((): void => {
-      if (childRef.current === true) {
-        openMainProc();
+      MetaLegDiv.style.position = "relative";
+
+      const LegDiv: HTMLDivElement = document.createElement('div');
+
+      LegDiv.innerText = propsDic.General.legendMsg as string;
+      LegDiv.id = idLegend.current = 'Legend-' + Math.floor(Math.random() * 10000);
+
+      Object.entries(propsDic.LegendStyles).forEach((elm: [string, any]): void => {
+        (LegDiv.style as any)[elm[0]] = elm[1];
+      });
+
+      if (props.legend === false) {
+        LegDiv.style.visibility = "hidden";
       }
-    }, 200);
-  };
-  const onMouseLeaveChild: () => void = (): void => {
-    childRef.current = false;
-    checkClose();
-  };
-  const onMouseEnterCont: () => void = (): void => {
-    contRef.current = true;
-  };
-  const onMouseLeaveCont: () => void = (): void => {
-    contRef.current = false;
-    checkClose();
-  };
+
+      // Get the parent element
+      const parentElement: HTMLElement = document.getElementById(idChild.current as string) as HTMLElement;
+      // Get the parent's first child
+      const theFirstChild: HTMLElement = parentElement.firstChild as HTMLElement;
+
+      MetaLegDiv.appendChild(LegDiv);
+
+      //idDynChild
+      theFirstChild.setAttribute(
+        'idDynChild',
+        idDynChild.current = 'idDynChild-' + Math.floor(Math.random() * 10000),
+      );
+
+      // Create a new element
+      const hArray = ["H1", "H2", "H3", "H4", "H5", "H6"];
+
+      if (hArray.includes(theFirstChild.nodeName)){
+        theFirstChild.appendChild(MetaLegDiv);
+      } else {
+        theFirstChild.appendChild(MetaLegDiv);
+      }
+
+      resolve(true);
+    });
+  }
+
+  const startProc = async (): Promise<void> => {
+    const res = await createLegend();
+
+    if (res === true) {
+      calcPos();
+    }
+  }
 
   // caclPos on start to avoid errors
   useEffect((): void => {
     if (propsDic.General.active === true) {
-      calcPos();
+      if (props.children && (props.children as any).$$typeof === Symbol.for('react.element')) {
+        startProc();
+      } else {
+        throw new Error('react-modal-hover needs a children and is empty');
+      }
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [props.LegendStyles, props.ContentStyles, props.BackgroundStyles])
+
+  console.log('propsDic.General ->', propsDic.General);
 
   return (
     propsDic.General.active === true
       ? (
         <div
           className="ModalHoverMainDiv"
-          style={ModalHoverMainDivStyles}
+          style={propsDic.MainDivStyles}
           id={idMain.current = 'Main-' + Math.floor(Math.random() * 10000)}
         >
           <div
             className="ModalHoverBack"
-            style={ModalHoverBackStyles}
+            style={propsDic.BackgroundStyles}
             id={idBack.current = 'Back-' + Math.floor(Math.random() * 10000)}
           />
           <div
             className="ModalHoverChild"
-            style={ModalHoverChildStyles}
-            onMouseEnter={onMouseEnterChild}
-            onMouseLeave={onMouseLeaveChild}
+            style={propsDic.ChildStyles}
+            onMouseEnter={(): void => {
+              childRef.current = true;
+
+              setTimeout((): void => {
+                if (childRef.current === true) {
+                  calcPos();
+                  openBack();
+                  openCont();
+                }
+              }, 200);
+            }}
+            onMouseLeave={(): void => {
+              childRef.current = false;
+              checkClose();
+            }}
             id={idChild.current = 'Child-' + Math.floor(Math.random() * 10000)}
           >
-            <div style={{ position: 'relative' }}>
-              {propsDic.General.legend === true && (
-                <div style={ModalHoverLegendStyles}>
-                  {propsDic.General.legendMsg}
-                </div>
-              )}
-            </div>
             {props.children}
           </div>
           <div
             className="ModalHoverCont"
-            style={ModalHoverContStyles}
+            style={propsDic.ContentStyles}
             id={idCont.current = 'Cont-' + Math.floor(Math.random() * 10000)}
-            onMouseEnter={onMouseEnterCont}
-            onMouseLeave={onMouseLeaveCont}
+            onMouseEnter={(): void => {
+              contRef.current = true;
+            }}
+            onMouseLeave={(): void => {
+              contRef.current = false;
+              checkClose();
+            }}
           >
-            {props.onHover}
+              {props.onHover}
           </div>
         </div>
       )
       : <>{props.children}</>
-  );
+  )
 }

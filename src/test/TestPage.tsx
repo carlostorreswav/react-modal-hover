@@ -6,55 +6,61 @@ import './styles.css';
 
 function TestPage(): JSX.Element {
   return (
-    <div className="TestPageMainDiv">
-      <h1>This is TestPage</h1>
+    <>
+      <div className="TestPageMainDiv">
+        <h1>react-modal-hover</h1>
+        <hr />
+      </div>
+
       <ModalHover
         onHover={(
-          <h1>I'm The Contentsdffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffsg</h1>
+          <h1>Thfghjfghgjffhjxt</h1>
         )}
+        logs
       >
-        <button>IM THE FIRST CHILDREN</button>
+        <h1 className="toHover1">Hover me!</h1>
       </ModalHover>
 
-      <ModalHover onHover={<h1>I'm The Conasdfsdtent</h1>}>
-        <div id="firstDiv" className="centered">
-          <button>IM THE FIRST CHILDREN</button>
-        </div>
-      </ModalHover>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <ModalHover onHover={<h1>I'm The Conasdfsdtent</h1>}>
-        <button >IM THE FIRST CHILDREN</button>
-      </ModalHover>
-      <br/><br/><br/><br/><br/>
       <ModalHover
-        onHover={<h1>I'm The Contentsdffffffffsg</h1>}
-        Fades={{
-          backFadeIn: '2.5s ease',
-          backFadeOut: '2.5s ease',
-          contFadeIn: '2.5s ease',
-          contFadeOut: '2.5s ease',
-        }}
+        onHover={(
+          <h1>Tdfghdfghdfghfdghis  text</h1>
+        )}
+        logs
       >
-        <div className="fullcenter">
-          <button>IM THE FIRST CHILDREN</button>
-        </div>
+        <div className="toHover2">Hover me!</div>
       </ModalHover>
-      <br/><br/><br/><br/><br/>
-      <ModalHover onHover={<h1>I'm The Conteffsg</h1>}>
-        <button>IM THE FIRST CHILDREN</button>
+
+      <ModalHover
+        onHover={(
+          <h1>This is a very long text This is a very long text This is a very long text This is a very long textThis is a very long text This is a very long text This is a very long text This is a very long textThis is a very long text This is a very long text This is a very long text This is a very long textThis is a very long text This is a very long text This is a very long text This is a very long text</h1>
+        )}
+        logs
+      >
+        <h1 className="toHover3">Hover me!</h1>
       </ModalHover>
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-      <ModalHover onHover={<h1>ffffffffffffffffffffffffsg</h1>}>
-        <button >IM THE FIRST CHdfgILDREN</button>
+
+      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+      <ModalHover
+        onHover={(
+          <h1>This is normal text</h1>
+        )}
+        logs
+      >
+        <h1 className="toHover1">Hover me!</h1>
       </ModalHover>
-      <ModalHover onHover={<h1>ffffffdsfgsdfgdsfgdffffffffffffffffsdfgdsfgsfffsg</h1>}>
-        <button >IM THE FIRST CHILDREN</button>
+
+      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+      <ModalHover
+        onHover={(
+          <h1>This is a very long text This is a very long textThis is a very long textThis is a very long textThis is a very long text</h1>
+        )}
+        logs
+      >
+        <h1 className="toHover1">Hover me!</h1>
       </ModalHover>
-    </div>
+    </>
   )
 };
 
