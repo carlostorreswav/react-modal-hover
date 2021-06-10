@@ -26,7 +26,7 @@ Take care with the `width` of the element you want to hover 🤟
 ```npm i react-modal-hover```
 
 ### Import it on your .js 📥
-```import ModalHover from 'react-modal-hover'```
+```import { ModalHover } from 'react-modal-hover'```
 
 ### Prepare your "onHover" component or just a simple string
 
@@ -123,10 +123,10 @@ const MyContentStyles = {
 
 #### __Example with direct css insert (just like in React)__
 ```
-<ModalHover 
-    ContentStyles={{color:"red", padding:"20px"}} 
-    LegendStyles={{backgroundColor:"red"}} 
-    onHover={<MyCompOnHover/>} 
+<ModalHover
+    ContentStyles={{color:"red", padding:"20px"}}
+    LegendStyles={{backgroundColor:"red"}}
+    onHover={<MyCompOnHover/>}
     legendMsg="info"
     >
   <div>Im other div that wants to be hovered</div>
@@ -147,8 +147,8 @@ const MyContentStyles = {
 |contFadeOut|string|.3s ease|recommended fade out for content|
 #### __Example with Fades__
 ```
-<ModalHover 
-    Fades={{backFadeIn:".5s linear", contFadeIn:".5s linear"}} 
+<ModalHover
+    Fades={{backFadeIn:".5s linear", contFadeIn:".5s linear"}}
     legendMsg="info"
     >
   <div>Im other div that wants to be hovered</div>
@@ -157,7 +157,7 @@ const MyContentStyles = {
 <br>
 
 ### __TypeScript__
-This package does not support TypeScript yet and that's sad 😞 __please PR me! 🥰__
+This package does support TypeScript 🥰
 
 <br>
 
@@ -166,4 +166,3 @@ This package does not support TypeScript yet and that's sad 😞 __please PR me!
 __GitHub__ | <a href="https://github.com/carlostorreswav">@carlostorreswav<a/><br>
 __Twitter__ | <a href="https://twitter.com/carlostorreswav">@carlostorreswav<a/><br>
 __Linkedin__ | <a href="https://www.linkedin.com/in/carlos-torres-a8a459213/">Carlos Torres<a/>
-
