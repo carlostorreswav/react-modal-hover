@@ -163,7 +163,7 @@ export function ModalHover(props: ModalHoverProps): JSX.Element {
       contPos = { ...contPos, wRight: true };
     }
 
-    if (contData.width >= window.innerWidth / 2 || childData.x + childData.width >= window.innerWidth / 2) {
+    if (contData.width >= window.innerWidth / 2) {
       contPos = { ...contPos, isBig: true };
     }
 
@@ -211,9 +211,9 @@ export function ModalHover(props: ModalHoverProps): JSX.Element {
 
       newPosY = - (contData.height + childData.height + newLegHeight);
     }
-
     contDiv.style.transform = `translate(${moveX(childData, contData, contPos)}px, ${newPosY }px)`;
   };
+
   const checkClose: () => void = (): void => {
     setTimeout(() => {
       if (childRef.current !== true && contRef.current !== true) {
@@ -273,6 +273,9 @@ export function ModalHover(props: ModalHoverProps): JSX.Element {
 
     if (res === true) {
       calcPos();
+      setTimeout(() => {
+        calcPos()
+      }, 50)
     }
   }
 
@@ -288,8 +291,6 @@ export function ModalHover(props: ModalHoverProps): JSX.Element {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.LegendStyles, props.ContentStyles, props.BackgroundStyles])
-
-  console.log('propsDic.General ->', propsDic.General);
 
   return (
     propsDic.General.active === true

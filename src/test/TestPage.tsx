@@ -14,7 +14,7 @@ function TestPage(): JSX.Element {
 
       <ModalHover
         onHover={(
-          <h1>Thfghjfghgjffhjxt</h1>
+          <h1>SHORT TEXT TEST</h1>
         )}
         logs
       >
@@ -23,7 +23,7 @@ function TestPage(): JSX.Element {
 
       <ModalHover
         onHover={(
-          <h1>Tdfghdfghdfghfdghis  text</h1>
+          <h1>TEXT</h1>
         )}
         logs
       >
@@ -32,7 +32,7 @@ function TestPage(): JSX.Element {
 
       <ModalHover
         onHover={(
-          <h1>This is a very long text This is a very long text This is a very long text This is a very long textThis is a very long text This is a very long text This is a very long text This is a very long textThis is a very long text This is a very long text This is a very long text This is a very long textThis is a very long text This is a very long text This is a very long text This is a very long text</h1>
+          <h1>This is a very long text This is a very long text - This is a very long text This is a very long text - This is a very long text This is a very long text - This is a very long text This is a very long text - This is a very long text This is a very long text</h1>
         )}
         logs
       >
@@ -54,7 +54,7 @@ function TestPage(): JSX.Element {
 
       <ModalHover
         onHover={(
-          <h1>This is a very long text This is a very long textThis is a very long textThis is a very long textThis is a very long text</h1>
+          <h1>This is a very long text This is a very long text This is a very long text This is a very long text This is a very long text</h1>
         )}
         logs
       >
