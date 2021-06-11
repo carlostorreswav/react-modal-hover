@@ -9,9 +9,10 @@ import {
   _propsDic,
 } from './custom-props';
 
-// import './styles.css';
+import './styles.css';
 
-import GlobalStyle from './globalStyles';
+//GLOBAL STYLES 🐛
+// import GlobalStyle from './globalStyles';
 
 export function ModalHover(props: ModalHoverProps): JSX.Element {
   // Styles
@@ -294,15 +295,42 @@ export function ModalHover(props: ModalHoverProps): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.LegendStyles, props.ContentStyles, props.BackgroundStyles])
 
+  const css = `
+  .ModalHoverChild > * {
+      visibility: visible;
+    }
+    
+    @keyframes AniOpaOpen {
+      0% {
+        filter: opacity(0);
+      }
+      100% {
+        filter: opacity(1);
+      }
+    }
+    
+    @keyframes AniOpaClose {
+      0% {
+        filter: opacity(0.5);
+      }
+      100% {
+        filter: opacity(0);
+      }
+    }
+    
+  `
+
   return (
     propsDic.General.active === true
       ? (
+        <>
+        <style>{css}</style>
         <div
           className="ModalHoverMainDiv"
           style={propsDic.MainDivStyles}
           id={idMain.current = 'Main-' + Math.floor(Math.random() * 10000)}
         >
-          <GlobalStyle/>
+          {/* <GlobalStyle/> */}
           <div
             className="ModalHoverBack"
             style={propsDic.BackgroundStyles}
@@ -344,7 +372,7 @@ export function ModalHover(props: ModalHoverProps): JSX.Element {
           >
               {props.onHover}
           </div>
-        </div>
+        </div></>
       )
       : <>{props.children}</>
   )
