@@ -1,6 +1,6 @@
 {
   "name": "react-modal-hover",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "author": "@carlostorreswav",
   "keywords": [
     "react",
@@ -67,5 +67,8 @@
     "react": "^15.0.0 || ^16.0.0 || ^17.0.0",
     "react-dom": "^15.0.0 || ^16.0.0 || ^17.0.0",
     "react-scripts": "^4.0.0"
-  }, "dependencies": {"styled-components": "^5.3.0"}
+  },
+  "dependencies": {
+    "styled-components": "^5.3.0"
+  }
 }
