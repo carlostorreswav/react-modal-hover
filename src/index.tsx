@@ -7,17 +7,17 @@
 |
 */
 
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+// import * as React from 'react';
+// import * as ReactDOM from 'react-dom';
 
-import TestPage from './test/TestPage';
+// import TestPage from './test/TestPage';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <TestPage />
-  </React.StrictMode>,
-  document.getElementById('root'),
-);
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <TestPage />
+//   </React.StrictMode>,
+//   document.getElementById('root'),
+// );
 
 /*
 |--------------------------------------------------------------------------
