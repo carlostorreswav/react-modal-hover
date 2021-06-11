@@ -9,7 +9,9 @@ import {
   _propsDic,
 } from './custom-props';
 
-import './styles.css';
+// import './styles.css';
+
+import GlobalStyle from './globalStyles';
 
 export function ModalHover(props: ModalHoverProps): JSX.Element {
   // Styles
@@ -300,6 +302,7 @@ export function ModalHover(props: ModalHoverProps): JSX.Element {
           style={propsDic.MainDivStyles}
           id={idMain.current = 'Main-' + Math.floor(Math.random() * 10000)}
         >
+          <GlobalStyle/>
           <div
             className="ModalHoverBack"
             style={propsDic.BackgroundStyles}
