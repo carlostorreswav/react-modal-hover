@@ -181,7 +181,7 @@ export function ModalHover(props: ModalHoverProps): JSX.Element {
     //HARDEST PROCEDURE ON DEV 👨‍💻
     let newPos = 0;
 
-    if (contPos.wCenter && !contPos.isBig || contPos.wRight && !contPos.isBig) {
+    if ((contPos.wCenter && !contPos.isBig) || (contPos.wRight && !contPos.isBig)) {
       const childMidPoint = childData.left + (childData.width / 2);
       const contMidPoint = contData.left + (contData.width / 2);
 
