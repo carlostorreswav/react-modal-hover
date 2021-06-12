@@ -11,9 +11,6 @@ import {
 
 import './styles.css';
 
-//GLOBAL STYLES 🐛
-// import GlobalStyle from './globalStyles';
-
 export function ModalHover(props: ModalHoverProps): JSX.Element {
   // Styles
   const propsDic = _propsDic(props);
@@ -184,7 +181,14 @@ export function ModalHover(props: ModalHoverProps): JSX.Element {
     //HARDEST PROCEDURE ON DEV 👨‍💻
     let newPos = 0;
 
-    if (contPos.wCenter && !contPos.isBig) {
+    if (contPos.wCenter && !contPos.isBig || contPos.wRight && !contPos.isBig) {
+      const childMidPoint = childData.left + (childData.width / 2);
+      const contMidPoint = contData.left + (contData.width / 2);
+
+      newPos = - (contMidPoint - childMidPoint);
+    }
+
+    if (contPos.isBig) {
       const childMidPoint = childData.left + (childData.width / 2);
       const contMidPoint = contData.left + (contData.width / 2);
 
@@ -293,44 +297,17 @@ export function ModalHover(props: ModalHoverProps): JSX.Element {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.LegendStyles, props.ContentStyles, props.BackgroundStyles])
-
-  // const css = `
-  // .ModalHoverChild > * {
-  //     visibility: visible;
-  //   }
-    
-  //   @keyframes AniOpaOpen {
-  //     0% {
-  //       filter: opacity(0);
-  //     }
-  //     100% {
-  //       filter: opacity(1);
-  //     }
-  //   }
-    
-  //   @keyframes AniOpaClose {
-  //     0% {
-  //       filter: opacity(0.5);
-  //     }
-  //     100% {
-  //       filter: opacity(0);
-  //     }
-  //   }
-    
-  // `
+  }, [props.LegendStyles, props.ContentStyles, props.BackgroundStyles, props.active])
 
   return (
     propsDic.General.active === true
       ? (
         <>
-        {/* <style>{css}</style> */}
         <div
           className="ModalHoverMainDiv"
           style={propsDic.MainDivStyles}
           id={idMain.current = 'Main-' + Math.floor(Math.random() * 10000)}
         >
-          {/* <GlobalStyle/> */}
           <div
             className="ModalHoverBack"
             style={propsDic.BackgroundStyles}

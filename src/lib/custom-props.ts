@@ -62,7 +62,7 @@ export function _propsDic({
       border:
         ContentStyles && ContentStyles.border
           ? ContentStyles.border
-          : '2px solid orange',
+          : '2px solid grey',
       marginLeft:
         ContentStyles && ContentStyles.marginLeft
           ? ContentStyles.marginLeft

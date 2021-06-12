@@ -81,7 +81,7 @@ Take care with the `width` of the element you want to hover 🤟
 |__boxShadow__|string|0 0 10px 2px black| content css property|
 |__color__|string|white| content css property|
 |__padding__|string|10px 20px| content css property|
-|__border__|string|2px solid orange| content css property|
+|__border__|string|2px solid grey| content css property|
 |__marginLeft__|string|20px| content css property|
 |__marginRight__|string|20px| content css property|
 
@@ -166,3 +166,5 @@ This package does support TypeScript 🥰
 __GitHub__ | <a href="https://github.com/carlostorreswav">@carlostorreswav<a/><br>
 __Twitter__ | <a href="https://twitter.com/carlostorreswav">@carlostorreswav<a/><br>
 __Linkedin__ | <a href="https://www.linkedin.com/in/carlos-torres-a8a459213/">Carlos Torres<a/>
+
+### TypeScript support thanks to @ciensprog 🧡
