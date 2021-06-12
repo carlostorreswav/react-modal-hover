@@ -13,15 +13,30 @@ module.exports = {
     };
 
     newConfig.plugins.push(
+
+      // Before 🔴
+      // postcss({
+      //   plugins: [
+      //     autoprefixer(),
+      //     cssnano({ preset: 'default' }),
+      //   ],
+      //   inject: false,
+      //   // only write out CSS for the first bundle (avoids pointless extra files):
+      //   extract: !!options.writeMeta,
+      // })
+
+      // After 🟢
+      // autoprefixer creates sintax for all kind of browsers
+      // cssnano compress the css files
+      
       postcss({
+        extract: true,
         plugins: [
           autoprefixer(),
           cssnano({ preset: 'default' }),
-        ],
-        inject: false,
-        // only write out CSS for the first bundle (avoids pointless extra files):
-        extract: !!options.writeMeta,
+        ]
       })
+      
     );
 
     return newConfig;

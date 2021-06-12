@@ -295,36 +295,36 @@ export function ModalHover(props: ModalHoverProps): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.LegendStyles, props.ContentStyles, props.BackgroundStyles])
 
-  const css = `
-  .ModalHoverChild > * {
-      visibility: visible;
-    }
+  // const css = `
+  // .ModalHoverChild > * {
+  //     visibility: visible;
+  //   }
     
-    @keyframes AniOpaOpen {
-      0% {
-        filter: opacity(0);
-      }
-      100% {
-        filter: opacity(1);
-      }
-    }
+  //   @keyframes AniOpaOpen {
+  //     0% {
+  //       filter: opacity(0);
+  //     }
+  //     100% {
+  //       filter: opacity(1);
+  //     }
+  //   }
     
-    @keyframes AniOpaClose {
-      0% {
-        filter: opacity(0.5);
-      }
-      100% {
-        filter: opacity(0);
-      }
-    }
+  //   @keyframes AniOpaClose {
+  //     0% {
+  //       filter: opacity(0.5);
+  //     }
+  //     100% {
+  //       filter: opacity(0);
+  //     }
+  //   }
     
-  `
+  // `
 
   return (
     propsDic.General.active === true
       ? (
         <>
-        <style>{css}</style>
+        {/* <style>{css}</style> */}
         <div
           className="ModalHoverMainDiv"
           style={propsDic.MainDivStyles}
