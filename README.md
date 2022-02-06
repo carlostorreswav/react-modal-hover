@@ -1,4 +1,4 @@
-This repo is no longer maintained because I'm focused on mambofx.vercel.app
+This repo is no longer maintained because I'm focused on [MamboFX](https://mambofx.vercel.app)
 
 # __react-modal-hover__
 
