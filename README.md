@@ -1,3 +1,5 @@
+This repo is no longer maintained because I'm focused on mambofx.vercel.app
+
 # __react-modal-hover__
 
 <img src="shared/rmh.gif" alt="drawing" style="width:500px"/>
