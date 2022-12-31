@@ -1,4 +1,4 @@
-This repo is no longer maintained because I'm focused on [MusicWall](https://musicwall.app)
+This repo is no longer maintained because I'm focus on [MusicWall](https://musicwall.app)
 
 # __react-modal-hover__
 
